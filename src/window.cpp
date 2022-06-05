@@ -19,5 +19,7 @@ namespace Storm
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             960, 540,
             flags);
+        if(window == nullptr)
+            isquit = true;
     }
 }

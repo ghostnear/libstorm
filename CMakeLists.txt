@@ -4,8 +4,9 @@ cmake_minimum_required(VERSION 3.9)
 add_library(
     libStorm
     STATIC
-    "src/msgbox.cpp"
+    "src/input.cpp"
     "src/window.cpp"
+    "src/msgbox.cpp"
     "src/libstorm.cpp"
 )
 

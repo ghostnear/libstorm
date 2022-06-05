@@ -3,7 +3,6 @@
 
 #include "deps.hpp"
 #include "msgbox.hpp"
-#include <SDL2/SDL_vulkan.h>
 
 namespace Storm
 {
@@ -25,9 +24,18 @@ namespace Storm
             void operator=(Window const&)  = delete;
 
             // Property getters
-            static SDL_Window* getSDL()
+            static SDL_Window* getSDL()     {   return Window::getInstance().window;    }
+            static std::string getName()    {   return Window::getInstance().title;     }
+            static bool shouldClose()       {   return Window::getInstance().isquit;    }
+            static void close()
             {
-                return Window::getInstance().window;
+                Window::getInstance().isquit = true;
+                SDL_DestroyWindow(getSDL());
+            }
+            static void setName(std::string newName)
+            {
+                SDL_SetWindowTitle(getSDL(), newName.c_str());
+                Window::getInstance().title = newName;
             }
 
         private:
@@ -36,7 +44,8 @@ namespace Storm
 
             // Window properties
             SDL_Window* window = nullptr;
-            std::string title = "<null>";
+            std::string title = "<window_name>";
+            bool isquit = false;
     };
 }
 

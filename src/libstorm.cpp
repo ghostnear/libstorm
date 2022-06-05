@@ -2,7 +2,7 @@
 
 namespace Storm
 {
-    int32_t Storm_Init()
+    int32_t StormInit()
     {
         // Init SDL
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -25,7 +25,7 @@ namespace Storm
         return EXIT_SUCCESS;
     }
 
-    int32_t Storm_Quit()
+    int32_t StormQuit()
     {
         // Quit SDL
         SDL_Quit();
