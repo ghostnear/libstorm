@@ -9,7 +9,7 @@ namespace Storm
         {
             showSimpleMessageBox(
                 "SDL error",
-                "An error occured while initialising SDL2: " + std::string(SDL_GetError()));
+                "An error occured while initialising SDL2:\n" + std::string(SDL_GetError()));
             return EXIT_FAILURE;        
         }
 
@@ -18,8 +18,17 @@ namespace Storm
         {
             showSimpleMessageBox(
                 "SDL error",
-                "An error occured while creating the SDL window: " + std::string(SDL_GetError()));
+                "An error occured while creating the SDL window:\n" + std::string(SDL_GetError()));
             return EXIT_FAILURE;
+        }
+
+        // Check if renderer has been created properly
+        if(Graphics::getSDL() == nullptr)
+        {
+            showSimpleMessageBox(
+                "SDL error",
+                "An error occured while initialising the graphics system:\n" + std::string(SDL_GetError()));
+            return EXIT_FAILURE;            
         }
 
         return EXIT_SUCCESS;

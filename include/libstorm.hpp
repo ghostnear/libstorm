@@ -5,6 +5,7 @@
 #include "input.hpp"
 #include "window.hpp"
 #include "msgbox.hpp"
+#include "graphics.hpp"
 
 namespace Storm
 {

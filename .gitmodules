@@ -1,0 +1,6 @@
+[submodule "external/sdl-gpu"]
+	path = external/sdl-gpu
+	url = https://github.com/grimfang4/sdl-gpu.git
+[submodule "external/sdl2-cmake-scripts"]
+	path = external/sdl2-cmake-scripts
+	url = https://github.com/tcbrindle/sdl2-cmake-scripts.git

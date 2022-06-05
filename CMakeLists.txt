@@ -7,15 +7,15 @@ add_library(
     "src/input.cpp"
     "src/window.cpp"
     "src/msgbox.cpp"
+    "src/graphics.cpp"
     "src/libstorm.cpp"
 )
 
 # Library properties
 set_target_properties(libStorm PROPERTIES OUTPUT_NAME storm)
 
-# SDL2 for graphics and stuff
-find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
+# External dependencies
+add_subdirectory(external)
 
 # Private directories for "*.h" includes and public directories for <libstorm/*.h> includes
 target_include_directories(
@@ -31,5 +31,5 @@ target_include_directories(
 target_link_libraries(
     libStorm
     PUBLIC
-        ${SDL2_LIBRARIES}
+        sdl2
 )
