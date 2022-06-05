@@ -32,4 +32,5 @@ target_link_libraries(
     libStorm
     PUBLIC
         sdl2
+        ${SDL2_GPU_LIBRARY_PATH}
 )
