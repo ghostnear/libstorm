@@ -1,6 +1,8 @@
 #ifndef LIBSTORM_SIMPLE_MESSAGE_BOX_HPP
 #define LIBSTORM_SIMPLE_MESSAGE_BOX_HPP
 
+#include "deps.hpp"
+
 namespace Storm
 {
     enum MessageBoxType

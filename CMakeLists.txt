@@ -5,6 +5,7 @@ add_library(
     libStorm
     STATIC
     "src/msgbox.cpp"
+    "src/window.cpp"
     "src/libstorm.cpp"
 )
 

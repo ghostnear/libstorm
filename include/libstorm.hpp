@@ -2,11 +2,10 @@
 #define LIBSTORM_HPP
 
 // Dependencies
-#include <cstdio>
-#include <string>
-#include <SDL2/SDL.h>
+#include "deps.hpp"
 
 // Lib internals
+#include "window.hpp"
 #include "msgbox.hpp"
 
 namespace Storm

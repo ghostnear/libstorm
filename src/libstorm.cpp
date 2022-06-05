@@ -13,6 +13,15 @@ namespace Storm
             return EXIT_FAILURE;        
         }
 
+        // Check if window was created corectly
+        if(Window::getSDL() == nullptr)
+        {
+            showSimpleMessageBox(
+                "SDL error",
+                "An error occured while creating the SDL window: " + std::string(SDL_GetError()));
+            return EXIT_FAILURE;
+        }
+
         return EXIT_SUCCESS;
     }
 
