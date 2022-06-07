@@ -1,12 +1,12 @@
 #ifndef LIBSTORM_HPP
 #define LIBSTORM_HPP
 
-// Lib internals
+#include "ecs.hpp"
 #include "input.hpp"
 #include "window.hpp"
 #include "msgbox.hpp"
 #include "graphics.hpp"
-#include "entitymanager.hpp"
+#include "gamemanager.hpp"
 
 namespace Storm
 {

@@ -5,11 +5,12 @@ add_library(
     libStorm
     STATIC
     "src/libstorm.cpp"
+    "src/game/ecs.cpp"
+    "src/game/gamemanager.cpp"
     "src/input/input.cpp"
     "src/rendering/window.cpp"
     "src/rendering/msgbox.cpp"
     "src/rendering/graphics.cpp"
-    "src/ecs/entitymanager.cpp"
 )
 
 # Library properties

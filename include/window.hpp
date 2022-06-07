@@ -27,16 +27,10 @@ namespace Storm
             static SDL_Window* getSDL()     {   return Window::getInstance().window;    }
             static std::string getName()    {   return Window::getInstance().title;     }
             static bool shouldClose()       {   return Window::getInstance().isquit;    }
-            static void close()
-            {
-                Window::getInstance().isquit = true;
-                SDL_DestroyWindow(getSDL());
-            }
-            static void setName(std::string newName)
-            {
-                SDL_SetWindowTitle(getSDL(), newName.c_str());
-                Window::getInstance().title = newName;
-            }
+            static void close();
+            static void setName(std::string newName);
+            static bool isFullscreen()      {   return Window::getInstance().fullscreen;}
+            static void setFullscreen(uint32_t flags);
 
         private:
             // Constructor should be private
@@ -46,6 +40,8 @@ namespace Storm
             SDL_Window* window = nullptr;
             std::string title = "<window_name>";
             bool isquit = false;
+            uint32_t fullscreen_type = 0;
+            bool fullscreen = false;
     };
 }
 
