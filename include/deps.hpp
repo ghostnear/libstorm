@@ -2,7 +2,7 @@
 #define LIBSTORM_DEPS_HPP
 
 #include <cstdio>
-#include <string>
+#include <iostream>
 #include <SDL2/SDL.h>
 
 #endif

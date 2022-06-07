@@ -6,6 +6,7 @@
 #include "window.hpp"
 #include "msgbox.hpp"
 #include "graphics.hpp"
+#include "entitymanager.hpp"
 
 namespace Storm
 {

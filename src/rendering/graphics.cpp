@@ -8,8 +8,8 @@ namespace Storm
         uint32_t flags = 0;
 
         // SDL renderer
-        renderer = SDL_CreateRenderer(Window::getSDL(), -1, flags);
-        if(renderer == nullptr)
+        _r = SDL_CreateRenderer(Window::getSDL(), -1, flags);
+        if(_r == nullptr)
             Window::close();
     }
 

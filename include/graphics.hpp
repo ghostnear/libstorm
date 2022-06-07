@@ -24,7 +24,7 @@ namespace Storm
             void operator=(Graphics const&)  = delete;
 
             // Getters
-            static SDL_Renderer* getSDL()     {   return Graphics::getInstance().renderer;    }
+            static SDL_Renderer* getSDL()     {   return Graphics::getInstance()._r;    }
 
             // Methods
             static void update();
@@ -36,7 +36,7 @@ namespace Storm
             Graphics();
 
             // Properties
-            SDL_Renderer* renderer = nullptr;
+            SDL_Renderer* _r = nullptr;
     };
 }
 

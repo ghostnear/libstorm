@@ -3,6 +3,7 @@
 
 #include "deps.hpp"
 #include "window.hpp"
+#include <map>
 
 namespace Storm
 {
@@ -25,13 +26,23 @@ namespace Storm
 
             // Methods
             static void pollEvents();
+            static bool isDown(SDL_Keycode key);
+            static bool isPressed(SDL_Keycode key);
+            static bool isReleased(SDL_Keycode key);
 
         private:
             // Constructor should be private
             Input();
 
-            // Properties
-            SDL_Event* event;
+            // Event handling
+            SDL_Event* _event;
+
+            // Internal event handlers
+            static void onKey(SDL_Event* ev, bool pressed);
+
+            // Keyboard handling
+            std::map<SDL_Keycode, bool> _currentState;
+            std::map<SDL_Keycode, bool> _lastState;
     };
 }
 

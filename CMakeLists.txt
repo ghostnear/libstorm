@@ -4,11 +4,12 @@ cmake_minimum_required(VERSION 3.9)
 add_library(
     libStorm
     STATIC
-    "src/input.cpp"
-    "src/window.cpp"
-    "src/msgbox.cpp"
-    "src/graphics.cpp"
     "src/libstorm.cpp"
+    "src/input/input.cpp"
+    "src/rendering/window.cpp"
+    "src/rendering/msgbox.cpp"
+    "src/rendering/graphics.cpp"
+    "src/ecs/entitymanager.cpp"
 )
 
 # Library properties
