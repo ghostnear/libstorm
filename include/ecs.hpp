@@ -127,9 +127,9 @@ namespace Storm
         void createComponent()
         {
             const char* typeName = typeid(T).name();
-            _componentTypes.insert({typeName, mNextComponentType});
+            _componentTypes.insert({typeName, _nextComponentType});
             _componentArrays.insert({typeName, std::make_shared<ComponentArray<T>>()});
-            ++mNextComponentType;
+            ++_nextComponentType;
         }
 
         template<typename T>
@@ -169,7 +169,7 @@ namespace Storm
     private:
         std::unordered_map<const char*, Component> _componentTypes{};
         std::unordered_map<const char*, std::shared_ptr<ComponentArrayInterface>> _componentArrays{};
-        Component mNextComponentType{};
+        Component _nextComponentType{};
 
         template<typename T>
         std::shared_ptr<ComponentArray<T>> getComponentArray()
@@ -270,7 +270,7 @@ namespace Storm
         template<typename T>
         void addComponent(Entity entity, T component)
         {
-            _componentManager -> createComponent<T>(entity, component);
+            _componentManager -> addComponent<T>(entity, component);
 
             auto signature = _entityManager -> getSignature(entity);
             signature.set(_componentManager -> getComponentType<T>(), true);

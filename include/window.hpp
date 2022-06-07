@@ -24,9 +24,9 @@ namespace Storm
             void operator=(Window const&)  = delete;
 
             // Property getters
-            static SDL_Window* getSDL()     {   return Window::getInstance().window;    }
-            static std::string getName()    {   return Window::getInstance().title;     }
-            static bool shouldClose()       {   return Window::getInstance().isquit;    }
+            static SDL_Window* getSDL()                 {   return Window::getInstance().window;    }
+            static std::string getName()                {   return Window::getInstance().title;     }
+            static bool shouldClose()                   {   return Window::getInstance().isquit;    }
             static void close();
             static void setName(std::string newName);
             static bool isFullscreen()      {   return Window::getInstance().fullscreen;}

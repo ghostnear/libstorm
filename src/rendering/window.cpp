@@ -11,7 +11,7 @@ namespace Storm
         window = SDL_CreateWindow(
             title.c_str(),
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-            960, 540,
+            540, 540,
             flags);
         if(window == nullptr)
             isquit = true;
