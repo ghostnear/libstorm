@@ -17,7 +17,14 @@ add_library(
 set_target_properties(libStorm PROPERTIES OUTPUT_NAME storm)
 
 # External dependencies
-add_subdirectory(external)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/external/sdl2-cmake-modules")
+
+if(WIN32)
+  set(SDL2_PATH "${CMAKE_CURRENT_SOURCE_DIR}/external/sdl2")
+endif()
+
+find_package(SDL2 REQUIRED)
+find_package(SDL2_gfx REQUIRED)
 
 # Private directories for "*.h" includes and public directories for <libstorm/*.h> includes
 target_include_directories(
@@ -33,5 +40,5 @@ target_include_directories(
 target_link_libraries(
     libStorm
     PUBLIC
-        sdl2
+        SDL2::Core
 )

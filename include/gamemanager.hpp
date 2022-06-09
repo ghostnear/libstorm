@@ -20,16 +20,26 @@ namespace Storm
     class GameManager
     {
     public:
-        GameManager();
+        static GameManager& getInstance()
+        {
+            // This is instantiated on first use and guaranteed to be the only one
+            static GameManager instance;
+            return instance;
+        }
 
         // Methods
-        void draw();
-        void update(double dt);
-        void pushState(State* newState);
+        static void draw();
+        static void update();
+        static void pushState(State* newState);
+        static double getFPS();
 
     private:
+        GameManager();
+
         std::vector<State*> _states;
         bool _running = false;
+        double _dt = 0;
+        uint64_t _now = 0, _last = 0;
     };
 };
 
