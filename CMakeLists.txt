@@ -16,16 +16,6 @@ add_library(
 # Library properties
 set_target_properties(libStorm PROPERTIES OUTPUT_NAME storm)
 
-# External dependencies
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/external/sdl2-cmake-modules")
-
-if(WIN32)
-  set(SDL2_PATH "${CMAKE_CURRENT_SOURCE_DIR}/external/sdl2")
-endif()
-
-find_package(SDL2 REQUIRED)
-find_package(SDL2_gfx REQUIRED)
-
 # Private directories for "*.h" includes and public directories for <libstorm/*.h> includes
 target_include_directories(
     libStorm
@@ -37,8 +27,38 @@ target_include_directories(
         $<INSTALL_INTERFACE:include>
 )
 
-target_link_libraries(
-    libStorm
-    PUBLIC
-        SDL2::Core
-)
+# PSVita specifics
+if(BUILD_TARGET MATCHES "VITA")
+    target_link_libraries(
+        libStorm
+        PUBLIC
+            SDL2
+            SceDisplay_stub
+            SceCtrl_stub
+            SceAudio_stub
+            SceAudioIn_stub
+            SceSysmodule_stub
+            SceGxm_stub
+            SceCommonDialog_stub
+            SceAppMgr_stub
+            SceTouch_stub
+            SceHid_stub
+            SceMotion_stub
+            m
+    )
+else()
+    # External dependencies
+    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/external/sdl2-cmake-modules")
+
+    if(BUILD_TARGET MATCHES "WIN")
+        set(SDL2_PATH "${CMAKE_CURRENT_SOURCE_DIR}/external/sdl2")
+    endif()
+
+    find_package(SDL2 REQUIRED)
+
+    target_link_libraries(
+        libStorm
+        PUBLIC
+            SDL2::Core
+    )
+endif()

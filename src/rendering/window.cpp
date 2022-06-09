@@ -5,16 +5,19 @@ namespace Storm
     Window::Window()
     {
         // Window flags
-        uint32_t flags = SDL_WINDOW_OPENGL;
+        uint32_t flags = 0;
 
         // Create the SDL window
         window = SDL_CreateWindow(
             title.c_str(),
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-            540, 540,
+            size_x, size_y,
             flags);
         if(window == nullptr)
             isquit = true;
+
+        // This is for the situations where the windows start fullscreen (ex: Vita)
+        SDL_GetWindowSize(window, &size_x, &size_y);
     }
 
     void Window::close()
