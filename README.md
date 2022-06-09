@@ -18,7 +18,3 @@ Add the directory of the lib to your CMake project and include it using add_subd
 ### PSVita
 
 - [VitaSDK](https://vitasdk.org/)
-
-## [Trello board for issues / features](https://trello.com/b/SohEE8iV/libstorm-issues-features)
-
-If you find any issue with the example, feel free to open an issue here, on github. I will take the ones I see as relevant and them on the Trello board.

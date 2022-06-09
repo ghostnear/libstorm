@@ -2,10 +2,12 @@
 
 namespace Storm
 {
+    #define win Window::getInstance()
+
     Window::Window()
     {
         // Window flags
-        uint32_t flags = 0;
+        uint32_t flags = SDL_WINDOW_RESIZABLE;
 
         // Create the SDL window
         window = SDL_CreateWindow(
@@ -15,21 +17,33 @@ namespace Storm
             flags);
         if(window == nullptr)
             isquit = true;
-
-        // This is for the situations where the windows start fullscreen (ex: Vita)
-        SDL_GetWindowSize(window, &size_x, &size_y);
     }
 
     void Window::close()
     {
-        Window::getInstance().isquit = true;
+        win.isquit = true;
         SDL_DestroyWindow(getSDL());
     }
 
     void Window::setName(std::string newName)
     {
         SDL_SetWindowTitle(getSDL(), newName.c_str());
-        Window::getInstance().title = newName;
+        win.title = newName;
+    }
+
+    void Window::updateSize()
+    {
+        SDL_GetWindowSize(getSDL(), &win.size_x, &win.size_y);
+    }
+
+    void Window::onEvent(SDL_Event* ev)
+    {
+        switch(ev -> window.event)
+        {
+            case SDL_WINDOWEVENT_SIZE_CHANGED:
+                Window::updateSize();
+                break;
+        }
     }
 
     void Window::setFullscreen(uint32_t flags)
@@ -37,9 +51,11 @@ namespace Storm
         // Save flags if valid
         if(flags == 0 || flags == SDL_WINDOW_FULLSCREEN || flags == SDL_WINDOW_FULLSCREEN_DESKTOP)
         {
-            Window::getInstance().fullscreen_type = flags;
-            Window::getInstance().fullscreen = (flags == 0);
+            win.fullscreen_type = flags;
+            win.fullscreen = (flags == 0);
             SDL_SetWindowFullscreen(getSDL(), flags);
         }
     }
+
+    #undef win
 }

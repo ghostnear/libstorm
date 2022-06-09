@@ -46,6 +46,10 @@ namespace Storm
                 case SDL_APP_TERMINATING:
                     Window::close();
                     break;
+                
+                case SDL_WINDOWEVENT:
+                    Window::onEvent(_ev);
+                    break;
 
                 case SDL_KEYUP:
                     Input::onKey(_ev, false);

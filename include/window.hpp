@@ -31,7 +31,9 @@ namespace Storm
             static bool shouldClose()                   {   return win.isquit;                              }
             static std::pair<int, int> getSize()        {   return std::make_pair(win.size_x, win.size_y);  }
             static bool isFullscreen()                  {   return win.fullscreen;                          }
+            static void updateSize();
             static void close();
+            static void onEvent(SDL_Event* ev);
             static void setName(std::string newName);
             static void setFullscreen(uint32_t flags);
 
