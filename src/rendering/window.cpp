@@ -7,7 +7,7 @@ namespace Storm
     Window::Window()
     {
         // Window flags
-        uint32_t flags = SDL_WINDOW_RESIZABLE;
+        uint32_t flags = SDL_WINDOW_RESIZABLE | fullscreen_type;
 
         // Create the SDL window
         window = SDL_CreateWindow(
@@ -48,13 +48,17 @@ namespace Storm
 
     void Window::setFullscreen(uint32_t flags)
     {
+    #ifdef BUILD_TYPE_VITA
+        // TODO: Warning or log or something
+    #else
         // Save flags if valid
         if(flags == 0 || flags == SDL_WINDOW_FULLSCREEN || flags == SDL_WINDOW_FULLSCREEN_DESKTOP)
         {
             win.fullscreen_type = flags;
-            win.fullscreen = (flags == 0);
+            win.fullscreen = !(flags == 0);
             SDL_SetWindowFullscreen(getSDL(), flags);
         }
+    #endif
     }
 
     #undef win

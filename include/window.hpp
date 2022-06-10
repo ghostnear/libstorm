@@ -47,9 +47,17 @@ namespace Storm
             SDL_Window* window = nullptr;
             std::string title = "<window_name>";
             bool isquit = false;
-            uint32_t fullscreen_type = 0;
+        
+            // The Vita has specific requirements
+        #ifdef BUILD_TYPE_VITA
+            int size_x = 960, size_y = 540;
+            uint32_t fullscreen_type = SDL_WINDOW_FULLSCREEN;
+            bool fullscreen = true;
+        #else
             int size_x = 540, size_y = 540;
+            uint32_t fullscreen_type = 0;
             bool fullscreen = false;
+        #endif 
     };
 }
 
