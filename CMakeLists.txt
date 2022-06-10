@@ -34,6 +34,7 @@ if(BUILD_TARGET MATCHES "VITA")
         PUBLIC
             SDL2
             SDL2_ttf
+            SDL2_image
             SceDisplay_stub
             SceCtrl_stub
             SceAudio_stub
@@ -56,12 +57,14 @@ else()
     endif()
 
     find_package(SDL2 REQUIRED)
-    find_package(SDL2_ttf)
+    find_package(SDL2_image REQUIRED)
+    find_package(SDL2_ttf REQUIRED)
 
     target_link_libraries(
         libStorm
         PUBLIC
             SDL2::Core
             SDL2::TTF
+            SDL2::Image
     )
 endif()

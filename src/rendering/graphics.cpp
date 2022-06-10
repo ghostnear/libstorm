@@ -2,10 +2,12 @@
 
 namespace Storm
 {
+    #define gfx Graphics::getInstance()
+
     Graphics::Graphics()
     {
         // Renderer flags
-        uint32_t flags = 0;
+        uint32_t flags = SDL_RENDERER_ACCELERATED;
 
         // SDL renderer
         _r = SDL_CreateRenderer(Window::getSDL(), -1, flags);
@@ -28,4 +30,15 @@ namespace Storm
     {
         SDL_RenderClear(getSDL());
     }
+
+    void Graphics::free()
+    {
+        if(gfx._r != nullptr)
+        {
+            SDL_DestroyRenderer(gfx._r);
+            gfx._r = nullptr;
+        }
+    }
+
+    #undef gfx
 }

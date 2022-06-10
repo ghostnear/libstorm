@@ -42,6 +42,24 @@ namespace Storm
         {
             case SDL_WINDOWEVENT_SIZE_CHANGED:
                 Window::updateSize();
+                Graphics::update();
+                break;
+
+            // Repaint on exposure
+            case SDL_WINDOWEVENT_EXPOSED:
+                Graphics::update();
+                break;
+
+            case SDL_WINDOWEVENT_MINIMIZED:
+                win.minimized = true;
+                break;
+
+            case SDL_WINDOWEVENT_MAXIMIZED:
+                win.minimized = false;
+                break;
+
+            case SDL_WINDOWEVENT_RESTORED:
+                win.minimized = false;
                 break;
         }
     }
@@ -49,7 +67,7 @@ namespace Storm
     void Window::setFullscreen(uint32_t flags)
     {
     #ifdef BUILD_TYPE_VITA
-        // TODO: Warning or log or something
+        // TODO: Warning or log or something because only fullscreen is allowed
     #else
         // Save flags if valid
         if(flags == 0 || flags == SDL_WINDOW_FULLSCREEN || flags == SDL_WINDOW_FULLSCREEN_DESKTOP)
@@ -59,6 +77,15 @@ namespace Storm
             SDL_SetWindowFullscreen(getSDL(), flags);
         }
     #endif
+    }
+
+    void Window::free()
+    {
+        if(win.window != nullptr)
+        {
+            SDL_DestroyWindow(win.window);
+            win.window = nullptr;
+        }
     }
 
     #undef win
