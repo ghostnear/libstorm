@@ -46,6 +46,12 @@ if(BUILD_TARGET MATCHES "VITA")
             SceTouch_stub
             SceHid_stub
             SceMotion_stub
+            jpeg
+            png
+            webp
+            pthread
+            freetype
+            z
             m
     )
 else()
