@@ -2,6 +2,8 @@
 #define LIBSTORM_GAME_MANAGER_HPP
 
 #include "deps.hpp"
+#include "ecs.hpp"
+#include "systems.hpp"
 #include <vector>
 
 namespace Storm
@@ -11,10 +13,24 @@ namespace Storm
     class State
     {
     public:
+        // Assigns the default components
+        State()
+        {
+            assignDefaultComponents(&w);
+
+            Signature sgn;
+            sgn.set(w.getComponentType<Text>());
+            sys.push_back(w.registerSystem<TextSystem>());
+            sgn.reset();
+        }
         virtual void onInit() = 0;
         virtual void onDestroy() = 0;
         virtual void draw(GameManager* gm) = 0;
         virtual void update(GameManager* gm, double dt) = 0;
+
+    protected:
+        World w;
+        std::vector<std::shared_ptr<System>> sys;
     };
 
     class GameManager

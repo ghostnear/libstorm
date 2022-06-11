@@ -30,6 +30,9 @@ namespace Storm
 
             // Methods
             static void update();
+            static void setColor(int r, int g, int b, int a = 255);
+            static void setColor(SDL_Color c);
+            static void clear();
             static void clear(int r, int g, int b, int a = 255);
             static void clear(SDL_Color c);
             static void free();

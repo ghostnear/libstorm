@@ -75,6 +75,7 @@ namespace Storm
             win.fullscreen_type = flags;
             win.fullscreen = !(flags == 0);
             SDL_SetWindowFullscreen(getSDL(), flags);
+            Window::updateSize();
         }
     #endif
     }

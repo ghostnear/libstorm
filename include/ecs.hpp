@@ -29,6 +29,8 @@ namespace Storm
     // Component signature
     using Signature = std::bitset<LIBSTORM_MAX_COMPONENTS>;
 
+    class World;
+
     class EntityManager
     {
     public:
@@ -184,6 +186,8 @@ namespace Storm
     {
     public:
         std::set<Entity> _entities;
+        virtual void draw(World* w) = 0;
+        virtual void update(World* w, double dt) = 0;
     };
 
     class SystemManager

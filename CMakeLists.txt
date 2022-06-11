@@ -6,6 +6,7 @@ add_library(
     STATIC
     "src/libstorm.cpp"
     "src/game/ecs.cpp"
+    "src/game/ecssystems.cpp"
     "src/game/gamemanager.cpp"
     "src/input/input.cpp"
     "src/rendering/window.cpp"

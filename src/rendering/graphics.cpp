@@ -20,15 +20,31 @@ namespace Storm
         SDL_RenderPresent(getSDL());
     }
 
+    void Graphics::clear()
+    {
+        SDL_RenderClear(getSDL());
+    }
+
     void Graphics::clear(int r, int g, int b, int a)
     {
-        SDL_SetRenderDrawColor(getSDL(), r, g, b, a);
-        SDL_RenderClear(getSDL());
+        setColor(r, g, b, a);
+        clear();
     }
 
     void Graphics::clear(SDL_Color c)
     {
-        SDL_RenderClear(getSDL());
+        setColor(c);
+        clear();
+    }
+
+    void Graphics::setColor(int r, int g, int b, int a)
+    {
+        SDL_SetRenderDrawColor(getSDL(), r, g, b, a);
+    }
+
+    void Graphics::setColor(SDL_Color c)
+    {
+        SDL_SetRenderDrawColor(getSDL(), c.r, c.g, c.b, c.a);
     }
 
     void Graphics::free()
