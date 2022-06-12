@@ -1,0 +1,4 @@
+# Ignore SDL files
+sdl2/
+sdl2-image/
+sdl2-ttf/

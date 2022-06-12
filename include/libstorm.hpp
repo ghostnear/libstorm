@@ -14,6 +14,17 @@ namespace Storm
 {
     int32_t StormInit();
     int32_t StormQuit(int32_t ret_val);
+
+    namespace Utils
+    {
+        template<typename T>
+        std::string to_string(T arg)
+        {
+            std::ostringstream ss;
+            ss << arg;
+            return ss.str();
+        }
+    };
 }
 
 #endif

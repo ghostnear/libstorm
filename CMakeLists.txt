@@ -56,22 +56,16 @@ if(BUILD_TARGET MATCHES "VITA")
             m
     )
 else()
-    # External dependencies
-    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/external/sdl2-cmake-modules")
-
-    if(BUILD_TARGET MATCHES "WIN")
-        set(SDL2_PATH "${CMAKE_CURRENT_SOURCE_DIR}/external/sdl2")
-    endif()
-
-    find_package(SDL2 REQUIRED)
-    find_package(SDL2_image REQUIRED)
-    find_package(SDL2_ttf REQUIRED)
+    find_package(SDL2 CONFIG REQUIRED)
+    find_package(SDL2-image CONFIG REQUIRED)
+    find_package(SDL2-ttf CONFIG REQUIRED)
 
     target_link_libraries(
         libStorm
         PUBLIC
-            SDL2::Core
-            SDL2::TTF
-            SDL2::Image
+            SDL2::SDL2
+            SDL2::SDL2main
+            SDL2::SDL2_ttf
+            SDL2::SDL2_image
     )
 endif()
