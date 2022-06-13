@@ -1,5 +1,5 @@
-#ifndef LIBSTORM_ENTITY_MANAGER_HPP
-#define LIBSTORM_ENTITY_MANAGER_HPP
+#ifndef LIBSTORM_ENTITY_COMPONENT_SYSTEM_HPP
+#define LIBSTORM_ENTITY_COMPONENT_SYSTEM_HPP
 
 // Thanks to this, I understand ECS properly.
 // https://austinmorlan.com/posts/entity_component_system/
@@ -29,7 +29,7 @@ namespace Storm
     // Component signature
     using Signature = std::bitset<LIBSTORM_MAX_COMPONENTS>;
 
-    class World;
+    class ECSWorld;
 
     class EntityManager
     {
@@ -186,8 +186,8 @@ namespace Storm
     {
     public:
         std::set<Entity> _entities;
-        virtual void draw(World* w) = 0;
-        virtual void update(World* w, double dt) = 0;
+        virtual void draw(ECSWorld* w) = 0;
+        virtual void update(ECSWorld* w, double dt) = 0;
     };
 
     class SystemManager
@@ -238,10 +238,10 @@ namespace Storm
         std::unordered_map<const char*, std::shared_ptr<System>> _systems{};
     };
 
-    class World
+    class ECSWorld
     {
     public:
-        World()
+        ECSWorld()
         {
             // Create pointers to each manager
             _componentManager   = std::make_unique<ComponentManager>();

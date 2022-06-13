@@ -2,7 +2,7 @@
 
 namespace Storm
 {
-    void TextSystem::draw(World* w)
+    void TextSystem::draw(ECSWorld* w)
     {
         for (auto const& entity : _entities)
         {
@@ -27,5 +27,5 @@ namespace Storm
         }
     }
 
-    void TextSystem::update(World* w, double dt) { }
+    void TextSystem::update(ECSWorld* w, double dt) { }
 };

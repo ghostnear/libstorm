@@ -13,7 +13,7 @@ namespace Storm
     void GameManager::draw()
     {
         for(auto i : gm._states)
-            i -> draw(&gm);
+            i -> draw();
     }
 
     void GameManager::update()
@@ -22,13 +22,22 @@ namespace Storm
         gm._now = SDL_GetPerformanceCounter();
         gm._dt = (double)((gm._now - gm._last) / (double)SDL_GetPerformanceFrequency());
         for(auto i : gm._states)
-            i -> update(&gm, gm._dt);
+            i -> update(gm._dt);
     }
 
     void GameManager::pushState(State* newState)
     {
+        gm._running = true;
         newState -> onInit();
+        newState -> assignGameManager(&gm);
         gm._states.push_back(newState);
+    }
+
+    void GameManager::popState()
+    {
+        gm._states.pop_back();
+        if(gm._states.size() == 0)
+            gm._running = false;
     }
 
     double GameManager::getFPS()

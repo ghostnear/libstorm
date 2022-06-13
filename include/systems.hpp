@@ -11,8 +11,8 @@ namespace Storm
     class TextSystem : public System
     {
     public:
-        void draw(World* w);
-        void update(World* w, double dt);
+        void draw(ECSWorld* w);
+        void update(ECSWorld* w, double dt);
     };
 }
 

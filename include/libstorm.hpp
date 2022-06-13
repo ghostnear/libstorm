@@ -1,6 +1,7 @@
 #ifndef LIBSTORM_HPP
 #define LIBSTORM_HPP
 
+#include "oop.hpp"
 #include "ecs.hpp"
 #include "input.hpp"
 #include "window.hpp"

@@ -31,7 +31,7 @@ namespace Storm
         std::string str;
     };
 
-    static void assignDefaultComponents(World* w)
+    static void assignDefaultComponents(ECSWorld* w)
     {
         w -> registerComponent<Text>();
     }

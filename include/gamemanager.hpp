@@ -3,6 +3,7 @@
 
 #include "deps.hpp"
 #include "ecs.hpp"
+#include "oop.hpp"
 #include "systems.hpp"
 #include <vector>
 
@@ -13,8 +14,22 @@ namespace Storm
     class State
     {
     public:
+        virtual void onInit() = 0;
+        virtual void onDestroy() = 0;
+        virtual void draw() = 0;
+        virtual void update(double dt) = 0;
+
+        void assignGameManager(GameManager* gm) {_gm = gm;}
+
+    protected:
+        GameManager* _gm;
+    };
+
+    class ECSState : public State
+    {
+    public:
         // Assigns the default components
-        State()
+        ECSState()
         {
             assignDefaultComponents(&w);
 
@@ -23,15 +38,18 @@ namespace Storm
             sys.push_back(w.registerSystem<TextSystem>());
             sgn.reset();
         }
-        virtual void onInit() = 0;
-        virtual void onDestroy() = 0;
-        virtual void draw(GameManager* gm) = 0;
-        virtual void update(GameManager* gm, double dt) = 0;
 
     protected:
-        World w;
+        ECSWorld w;
         std::vector<std::shared_ptr<System>> sys;
     };
+
+    class OOPState : public State
+    {
+    protected:
+        OOPWorld w;
+    };
+    
 
     class GameManager
     {
@@ -47,6 +65,8 @@ namespace Storm
         static void draw();
         static void update();
         static void pushState(State* newState);
+        static void popState();
+        static bool isRunning() {   return GameManager::getInstance()._running; }
         static double getFPS();
 
     private:
