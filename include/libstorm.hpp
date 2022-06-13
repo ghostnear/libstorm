@@ -7,6 +7,7 @@
 #include "window.hpp"
 #include "msgbox.hpp"
 #include "systems.hpp"
+#include "objects.hpp"
 #include "graphics.hpp"
 #include "components.hpp"
 #include "gamemanager.hpp"

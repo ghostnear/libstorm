@@ -25,7 +25,7 @@ namespace Storm
         SDL_RenderClear(getSDL());
     }
 
-    void Graphics::clear(int r, int g, int b, int a)
+    void Graphics::clear(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
     {
         setColor(r, g, b, a);
         clear();
@@ -37,7 +37,7 @@ namespace Storm
         clear();
     }
 
-    void Graphics::setColor(int r, int g, int b, int a)
+    void Graphics::setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
     {
         SDL_SetRenderDrawColor(getSDL(), r, g, b, a);
     }

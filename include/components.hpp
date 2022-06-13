@@ -2,28 +2,10 @@
 #define LIBSTORM_DEFAULT_COMPONENTS_HPP
 
 #include "deps.hpp"
+#include "structs.hpp"
 
 namespace Storm
 {
-    template <typename T> 
-    struct Vec2
-    {
-        T x, y;
-    };
-
-    template <typename T>
-    struct Vec3
-    {
-        T x, y, z;
-    };
-
-    template <typename T>
-    struct Transform2
-    {
-        Vec2<T> pos;
-        double angle;
-    };
-
     struct Text
     {
         Transform2<double> tr;
