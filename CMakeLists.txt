@@ -8,10 +8,10 @@ add_library(
     "src/game/ecs.cpp"
     "src/game/systems.cpp"
     "src/game/gamemanager.cpp"
-    "src/input/input.cpp"
-    "src/rendering/window.cpp"
-    "src/rendering/msgbox.cpp"
-    "src/rendering/graphics.cpp"
+    "src/system/input.cpp"
+    "src/system/window.cpp"
+    "src/system/msgbox.cpp"
+    "src/system/graphics.cpp"
 )
 
 # Library properties
