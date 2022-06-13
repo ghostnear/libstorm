@@ -35,6 +35,7 @@ namespace Storm
             static std::pair<int, int> getSize()        {   return std::make_pair(win.size_x, win.size_y);  }
             static bool isFullscreen()                  {   return win.fullscreen;                          }
             static bool isMinimized()                   {   return win.minimized;                           }
+            static void resize(int newX, int newY);
             static void updateSize();
             static void close();
             static void onEvent(SDL_Event* ev);

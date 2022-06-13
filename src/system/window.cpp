@@ -25,6 +25,18 @@ namespace Storm
         SDL_DestroyWindow(getSDL());
     }
 
+    void Window::resize(int newX, int newY)
+    {
+    #ifdef BUILD_TYPE_VITA
+        // TODO: Warning or log or something because only fullscreen is allowed
+    #else
+        win.size_x = newX;
+        win.size_y = newY;
+        SDL_SetWindowSize(getSDL(), newX, newY);
+        SDL_SetWindowPosition(getSDL(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    #endif
+    }
+
     void Window::setName(std::string newName)
     {
         SDL_SetWindowTitle(getSDL(), newName.c_str());

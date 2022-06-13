@@ -7,7 +7,7 @@ namespace Storm
     Graphics::Graphics()
     {
         // Renderer flags
-        uint32_t flags = SDL_RENDERER_ACCELERATED;
+        uint32_t flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
 
         // SDL renderer
         _r = SDL_CreateRenderer(Window::getSDL(), -1, flags);
