@@ -12,33 +12,24 @@ namespace Storm
     class Input
     {
         public:
-            // Get the input instance
-            static Input& getInstance()
-            {
-                // This is instantiated on first use and guaranteed to be the only one
-                static Input instance;
-                return instance;
-            }
-
             // Do not allow for multiple instances
             Input(Input const&)          = delete;
             void operator=(Input const&)  = delete;
 
             // Methods
+            static Input& getInstance();
             static void pollEvents();
-            static bool isDown(SDL_Keycode key);
-            static bool isPressed(SDL_Keycode key);
-            static bool isReleased(SDL_Keycode key);
+            static bool isKeyDown(SDL_Keycode key);
+            static bool isKeyPressed(SDL_Keycode key);
+            static bool isKeyReleased(SDL_Keycode key);
+            static void onKey(SDL_Event* ev, bool pressed);
 
         private:
             // Constructor should be private
-            Input();
+            Input() {}
 
             // Event handling
-            SDL_Event* _event;
-
-            // Internal event handlers
-            static void onKey(SDL_Event* ev, bool pressed);
+            SDL_Event* _event = new SDL_Event();
 
             // Keyboard handling
             std::map<SDL_Keycode, bool> _currentState;

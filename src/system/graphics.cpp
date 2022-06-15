@@ -1,4 +1,4 @@
-#include "graphics.hpp"
+#include "system/graphics.hpp"
 
 namespace Storm
 {
@@ -7,7 +7,8 @@ namespace Storm
     Graphics::Graphics()
     {
         // Renderer flags
-        uint32_t flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC;
+        // TODO: replace these with an actual config file
+        uint32_t flags = SDL_RENDERER_ACCELERATED;
 
         // SDL renderer
         _r = SDL_CreateRenderer(Window::getSDL(), -1, flags);
@@ -15,20 +16,31 @@ namespace Storm
             Window::close();
     }
 
-    void Graphics::update()
+    SDL_Renderer* Graphics::getSDL()
     {
-        SDL_RenderPresent(getSDL());
+        return Graphics::getInstance()._r;
+    }
+
+    Graphics& Graphics::getInstance()
+    {
+        // This is instantiated on first use and guaranteed to be the only one
+        static Graphics instance;
+        return instance;
+    }
+
+    void Graphics::setColor(SDL_Color c)
+    {
+        SDL_SetRenderDrawColor(getSDL(), c.r, c.g, c.b, c.a);
+    }
+
+    void Graphics::setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+    {
+        SDL_SetRenderDrawColor(getSDL(), r, g, b, a);
     }
 
     void Graphics::clear()
     {
         SDL_RenderClear(getSDL());
-    }
-
-    void Graphics::clear(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-    {
-        setColor(r, g, b, a);
-        clear();
     }
 
     void Graphics::clear(SDL_Color c)
@@ -37,14 +49,15 @@ namespace Storm
         clear();
     }
 
-    void Graphics::setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+    void Graphics::clear(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
     {
-        SDL_SetRenderDrawColor(getSDL(), r, g, b, a);
+        setColor(r, g, b, a);
+        clear();
     }
 
-    void Graphics::setColor(SDL_Color c)
+    void Graphics::update()
     {
-        SDL_SetRenderDrawColor(getSDL(), c.r, c.g, c.b, c.a);
+        SDL_RenderPresent(getSDL());
     }
 
     void Graphics::free()

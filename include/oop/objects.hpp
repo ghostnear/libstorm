@@ -2,8 +2,7 @@
 #define LIBSTORM_OBJECTS_HPP
 
 #include "deps.hpp"
-#include "oop.hpp"
-#include "structs.hpp"
+#include "base.hpp"
 
 namespace Storm
 {
@@ -46,17 +45,17 @@ namespace Storm
         {
             if(_renText != nullptr)
             {
-                drawRect.w = (int)(size.x * (sizeScreenRelative ? Window::getSize().first : 1));
-                drawRect.h = (int)(size.y * (sizeScreenRelative ? Window::getSize().second : 1));
-                drawRect.x = (int)(position.x * (positionScreenRelative ? Window::getSize().first : 1)) - drawRect.w * offset.x;
-                drawRect.y = (int)(position.y * (positionScreenRelative ? Window::getSize().second : 1)) - drawRect.h * offset.y;
+                drawRect.w = (int)(size.x * (sizeScreenRelative ? Window::getSize().x : 1));
+                drawRect.h = (int)(size.y * (sizeScreenRelative ? Window::getSize().y : 1));
+                drawRect.x = (int)(position.x * (positionScreenRelative ? Window::getSize().x : 1)) - drawRect.w * offset.x;
+                drawRect.y = (int)(position.y * (positionScreenRelative ? Window::getSize().y : 1)) - drawRect.h * offset.y;
                 SDL_RenderCopy(Graphics::getSDL(), _texture, NULL, &drawRect);
             }
         }
 
         void update(OOPState* gm, double dt) override   {}
 
-    private:
+    protected:
         Vec2<double> position = {.x = 0, .y = 0}, size = {.x = -1, .y = -1}, offset = {.x = 0, .y = 0};
         SDL_Rect drawRect;
         bool positionScreenRelative = false;

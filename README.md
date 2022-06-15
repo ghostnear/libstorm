@@ -9,8 +9,7 @@ Add the directory of the lib to your CMake project and include it using add_subd
 
 ### Windows
 
-- sdl2 provided from the [official SDL2 website](https://www.libsdl.org/). Use the version compatible with your compiler (MinGW / MSVSC++) and copy it to the /external/sdl2 folder (make it if it does not exist).
-- (not tested yet, so the list is incomplete)
+- Install the SDL2, SDL2-image, SDL2-ttf packages from [vcpkg](https://vcpkg.io/en/index.html) and change the vcpkg path / build type to suit your needs.
 
 ### Unix
 

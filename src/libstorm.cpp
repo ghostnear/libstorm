@@ -66,4 +66,13 @@ namespace Storm
         #endif
         return (ret_val == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
     }
+
+    namespace Utils
+    {
+        SDL_Rect* intersectRects(SDL_Rect* a, SDL_Rect* b)
+        {
+            SDL_Rect* result = new SDL_Rect();
+            return (SDL_IntersectRect(a, b, result) == SDL_TRUE) ? result : nullptr;
+        }
+    }
 }

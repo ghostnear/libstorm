@@ -2,9 +2,10 @@
 #define LIBSTORM_DEFAULT_SYSTEMS_HPP
 
 #include "deps.hpp"
-#include "ecs.hpp"
-#include "graphics.hpp"
+#include "base.hpp"
 #include "components.hpp"
+#include "system/graphics.hpp"
+
 
 namespace Storm
 {

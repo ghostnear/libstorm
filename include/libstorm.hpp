@@ -1,16 +1,10 @@
 #ifndef LIBSTORM_HPP
 #define LIBSTORM_HPP
 
-#include "oop.hpp"
-#include "ecs.hpp"
-#include "input.hpp"
-#include "window.hpp"
-#include "msgbox.hpp"
-#include "systems.hpp"
-#include "objects.hpp"
-#include "graphics.hpp"
-#include "components.hpp"
-#include "gamemanager.hpp"
+#include "deps.hpp"
+#include "ecs/all.hpp"
+#include "oop/all.hpp"
+#include "system/all.hpp"
 
 namespace Storm
 {
@@ -20,12 +14,16 @@ namespace Storm
     namespace Utils
     {
         template<typename T>
-        std::string to_string(T arg)
+        inline std::string to_string(T arg)
         {
             std::ostringstream ss;
             ss << arg;
             return ss.str();
         }
+
+        // Intersects 2 rects and returns the resulting intersection.
+        // If the result is nullptr then that means the rects don't intersect
+        SDL_Rect* intersectRects(SDL_Rect* a, SDL_Rect* b);
     };
 }
 

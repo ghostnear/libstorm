@@ -2,13 +2,26 @@
 #define LIBSTORM_GAME_MANAGER_HPP
 
 #include "deps.hpp"
-#include "ecs.hpp"
-#include "oop.hpp"
-#include "systems.hpp"
+#include "ecs/all.hpp"
+#include "oop/all.hpp"
+#include "system/all.hpp"
 #include <vector>
+#include <thread>
+#include <chrono>
 
 namespace Storm
 {
+    namespace Utils
+    {
+        template<typename T>
+        inline std::string to_stringt(T arg)
+        {
+            std::ostringstream ss;
+            ss << arg;
+            return ss.str();
+        }
+    };
+
     class GameManager;
 
     class State
@@ -19,7 +32,7 @@ namespace Storm
         virtual void draw() = 0;
         virtual void update(double dt) = 0;
 
-        void assignGameManager(GameManager* gm) {_gm = gm;}
+        void assignGameManager(GameManager* gm);
 
     protected:
         GameManager* _gm;
@@ -28,16 +41,7 @@ namespace Storm
     class ECSState : public State
     {
     public:
-        // Assigns the default components
-        ECSState()
-        {
-            assignDefaultComponents(&w);
-
-            Signature sgn;
-            sgn.set(w.getComponentType<Text>());
-            sys.push_back(w.registerSystem<TextSystem>());
-            sgn.reset();
-        }
+        ECSState();
 
     protected:
         ECSWorld w;
@@ -54,26 +58,23 @@ namespace Storm
     class GameManager
     {
     public:
-        static GameManager& getInstance()
-        {
-            // This is instantiated on first use and guaranteed to be the only one
-            static GameManager instance;
-            return instance;
-        }
-
         // Methods
         static void draw();
+        static void delay();
         static void update();
+        static GameManager& getInstance();
         static void pushState(State* newState);
         static void popState();
-        static bool isRunning() {   return GameManager::getInstance()._running; }
-        static double getFPS();
+        static void limitFPS(int32_t newLimit);
+        static bool isRunning();
 
     private:
         GameManager();
 
         std::vector<State*> _states;
         bool _running = false;
+        int32_t _fpsLimit = -1;
+        double  _acc = 0;
         double _dt = 0;
         uint64_t _now = 0, _last = 0;
     };

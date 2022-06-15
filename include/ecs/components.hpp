@@ -2,7 +2,6 @@
 #define LIBSTORM_DEFAULT_COMPONENTS_HPP
 
 #include "deps.hpp"
-#include "structs.hpp"
 
 namespace Storm
 {

@@ -13,28 +13,19 @@ namespace Storm
     class Graphics
     {
         public:
-            // Get the input instance
-            static Graphics& getInstance()
-            {
-                // This is instantiated on first use and guaranteed to be the only one
-                static Graphics instance;
-                return instance;
-            }
-
             // Do not allow for multiple instances
             Graphics(Graphics const&)          = delete;
             void operator=(Graphics const&)  = delete;
 
-            // Getters
-            static SDL_Renderer* getSDL()     {   return Graphics::getInstance()._r;    }
-
             // Methods
-            static void update();
-            static void setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
+            static SDL_Renderer* getSDL();
+            static Graphics& getInstance();
             static void setColor(SDL_Color c);
+            static void setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
             static void clear();
-            static void clear(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
             static void clear(SDL_Color c);
+            static void clear(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
+            static void update();
             static void free();
 
         private:

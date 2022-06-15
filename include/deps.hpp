@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <sstream>
 #include <iostream>
+#include "structs.hpp"
 
 #ifndef BUILD_TYPE_WIN
     #include <SDL2/SDL.h>

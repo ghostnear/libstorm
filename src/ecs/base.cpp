@@ -1,4 +1,4 @@
-#include "ecs.hpp"
+#include "ecs/base.hpp"
 
 namespace Storm
 {
