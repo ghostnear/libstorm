@@ -2,3 +2,9 @@
 sdl2/
 sdl2-image/
 sdl2-ttf/
+
+# Ignore cmake files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile

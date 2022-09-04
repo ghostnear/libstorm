@@ -57,15 +57,15 @@ if(BUILD_TARGET MATCHES "VITA")
     )
 else()
     find_package(SDL2 CONFIG REQUIRED)
-    find_package(SDL2-image CONFIG REQUIRED)
-    find_package(SDL2-ttf CONFIG REQUIRED)
+    find_package(SDL2_image CONFIG REQUIRED)
+    find_package(SDL2_ttf CONFIG REQUIRED)
 
     target_link_libraries(
         libStorm
         PUBLIC
-            SDL2::SDL2
-            SDL2::SDL2main
-            SDL2::SDL2_ttf
-            SDL2::SDL2_image
+            SDL2
+            SDL2main
+            SDL2_image
+            SDL2_ttf
     )
 endif()
