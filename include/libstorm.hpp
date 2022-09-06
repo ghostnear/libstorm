@@ -2,8 +2,7 @@
 #define LIBSTORM_HPP
 
 #include "deps.hpp"
-#include "ecs/all.hpp"
-#include "oop/all.hpp"
+#include "nodes/all.hpp"
 #include "system/all.hpp"
 
 namespace Storm

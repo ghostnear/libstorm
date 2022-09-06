@@ -14,8 +14,8 @@ namespace Storm
     {
         public:
             // Do not allow for multiple instances
-            Graphics(Graphics const&)          = delete;
-            void operator=(Graphics const&)  = delete;
+            Graphics(Graphics const&)       = delete;
+            void operator=(Graphics const&) = delete;
 
             // Methods
             static SDL_Renderer* getSDL();

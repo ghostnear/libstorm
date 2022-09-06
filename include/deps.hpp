@@ -1,11 +1,14 @@
 #ifndef LIBSTORM_DEPS_HPP
 #define LIBSTORM_DEPS_HPP
 
+// Dependencies required everywhere
 #include <cstdio>
 #include <sstream>
 #include <iostream>
-#include "structs.hpp"
+#include <string>
+#include "system/structs.hpp"
 
+// Platform dependent dependencies
 #ifndef BUILD_TYPE_WIN
     #include <SDL2/SDL.h>
     #include <SDL2/SDL_image.h>

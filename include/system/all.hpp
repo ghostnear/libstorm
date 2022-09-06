@@ -3,6 +3,7 @@
 
 #include "input.hpp"
 #include "window.hpp"
+#include "structs.hpp"
 #include "graphics.hpp"
 #include "gamemanager.hpp"
 #include "assetmanager.hpp"

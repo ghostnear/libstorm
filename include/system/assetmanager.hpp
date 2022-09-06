@@ -1,8 +1,7 @@
 #ifndef LIBSTORM_ASSET_MANAGER_HPP
 #define LIBSTORM_ASSET_MANAGER_HPP
 
-/// WIP
-/*#include "deps.hpp"
+#include "deps.hpp"
 #include <map>
 #include <memory>
 
@@ -29,10 +28,9 @@ namespace Storm
             return (T*)_assetMap[identifier];
         }
 
-
     private:
         std::map<std::string, Asset*> _assetMap;
     };
-};*/
+};
 
 #endif

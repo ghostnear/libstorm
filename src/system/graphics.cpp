@@ -7,7 +7,7 @@ namespace Storm
     Graphics::Graphics()
     {
         // Renderer flags
-        // TODO: replace these with an actual config file
+        // TODO: replace these with an actual engine config file
         uint32_t flags = SDL_RENDERER_ACCELERATED;
 
         // SDL renderer

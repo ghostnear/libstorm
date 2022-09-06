@@ -4,7 +4,7 @@ namespace Storm
 {
     int32_t StormInit()
     {
-        // Init SDL
+        // Init SDL.
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
         {
             showSimpleMessageBox(
@@ -18,7 +18,7 @@ namespace Storm
             showSimpleMessageBox(
                 "SDL2_ttf error",
                 "An error occured while initialising SDL2_ttf:\n" + std::string(TTF_GetError()));
-            StormQuit(-1);       
+            StormQuit(-1);
         }
 
         int32_t img_flags = IMG_INIT_PNG;
@@ -27,10 +27,10 @@ namespace Storm
             showSimpleMessageBox(
                 "SDL2_img error",
                 "An error occured while initialising SDL2_img:\n" + std::string(IMG_GetError()));
-            StormQuit(-1);        
+            StormQuit(-1);
         }
 
-        // Check if window was created corectly
+        // Check if window was created correctly.
         if(Window::getSDL() == nullptr)
         {
             showSimpleMessageBox(
@@ -39,13 +39,13 @@ namespace Storm
             StormQuit(-1);
         }
 
-        // Check if renderer has been created properly
+        // Check if renderer has been created correctly.
         if(Graphics::getSDL() == nullptr)
         {
             showSimpleMessageBox(
                 "SDL2 error",
                 "An error occured while initialising the graphics system:\n" + std::string(SDL_GetError()));
-            StormQuit(-1);       
+            StormQuit(-1);
         }
 
         return EXIT_SUCCESS;
@@ -53,22 +53,27 @@ namespace Storm
 
     int32_t StormQuit(int32_t ret_val)
     {
+        // Free everything memory related here.
         Graphics::free();
         Window::free();
 
-        // Quit SDL
+        // Quit SDL.
         IMG_Quit();
         TTF_Quit();
         SDL_Quit();
 
-        #ifdef BUILD_TYPE_VITA
-            sceKernelExitProcess(ret_val);
-        #endif
+    #ifdef BUILD_TYPE_VITA
+        // Tell the kernel the process has been exited.
+        sceKernelExitProcess(ret_val);
+    #endif
+
+        // Any return value that is not 0 is an error.
         return (ret_val == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
     }
 
     namespace Utils
     {
+        // Returns the area in which 2 rectangles intersect or nullptr otherwise.
         SDL_Rect* intersectRects(SDL_Rect* a, SDL_Rect* b)
         {
             SDL_Rect* result = new SDL_Rect();

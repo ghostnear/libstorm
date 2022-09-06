@@ -2,9 +2,7 @@
 #define LIBSTORM_GAME_MANAGER_HPP
 
 #include "deps.hpp"
-#include "ecs/all.hpp"
-#include "oop/all.hpp"
-#include "system/all.hpp"
+#include "nodes/all.hpp"
 #include <vector>
 #include <thread>
 #include <chrono>
@@ -37,23 +35,6 @@ namespace Storm
     protected:
         GameManager* _gm;
     };
-
-    class ECSState : public State
-    {
-    public:
-        ECSState();
-
-    protected:
-        ECSWorld w;
-        std::vector<std::shared_ptr<System>> sys;
-    };
-
-    class OOPState : public State
-    {
-    protected:
-        OOPWorld w;
-    };
-    
 
     class GameManager
     {

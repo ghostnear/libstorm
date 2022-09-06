@@ -4,7 +4,7 @@ namespace Storm
 {
     void showSimpleMessageBox(std::string title, std::string message, SDL_MessageBoxFlags type, SDL_Window* parent)
     {
-        // Try to show the message box using SDL, if it is not possible, write to output
+        // Try to show the message box using SDL, if it is not possible, write to output.
         if(SDL_ShowSimpleMessageBox(type, title.c_str(), message.c_str(), parent) < 0)
             printf("%s!\n%s", title.c_str(), message.c_str());
     }
@@ -33,7 +33,7 @@ namespace Storm
         static Window instance;
         return instance;
     }
-    
+
     SDL_Window* Window::getSDL()
     {
         return win.window;
