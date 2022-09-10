@@ -2,7 +2,6 @@
 #define LIBSTORM_HPP
 
 #include "deps.hpp"
-#include "nodes/all.hpp"
 #include "system/all.hpp"
 
 namespace Storm
@@ -15,9 +14,9 @@ namespace Storm
         template<typename T>
         inline std::string to_string(T arg)
         {
-            std::ostringstream ss;
-            ss << arg;
-            return ss.str();
+            std::ostringstream _ss;
+            _ss << arg;
+            return _ss.str();
         }
 
         // Intersects 2 rects and returns the resulting intersection.

@@ -5,7 +5,6 @@ add_library(
     libStorm
     STATIC
     "src/libstorm.cpp"
-    "src/nodes/node.cpp"
     "src/system/input.cpp"
     "src/system/window.cpp"
     "src/system/graphics.cpp"

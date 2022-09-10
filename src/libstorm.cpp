@@ -9,7 +9,8 @@ namespace Storm
         {
             showSimpleMessageBox(
                 "SDL2 error",
-                "An error occured while initialising SDL2:\n" + std::string(SDL_GetError()));
+                "An error occured while initialising SDL2:\n" + std::string(SDL_GetError())
+            );
             StormQuit(-1);
         }
 
@@ -17,7 +18,8 @@ namespace Storm
         {
             showSimpleMessageBox(
                 "SDL2_ttf error",
-                "An error occured while initialising SDL2_ttf:\n" + std::string(TTF_GetError()));
+                "An error occured while initialising SDL2_ttf:\n" + std::string(TTF_GetError())
+            );
             StormQuit(-1);
         }
 
@@ -26,7 +28,8 @@ namespace Storm
         {
             showSimpleMessageBox(
                 "SDL2_img error",
-                "An error occured while initialising SDL2_img:\n" + std::string(IMG_GetError()));
+                "An error occured while initialising SDL2_img:\n" + std::string(IMG_GetError())
+            );
             StormQuit(-1);
         }
 
@@ -35,7 +38,8 @@ namespace Storm
         {
             showSimpleMessageBox(
                 "SDL2 error",
-                "An error occured while creating the SDL2 window:\n" + std::string(SDL_GetError()));
+                "An error occured while creating the SDL2 window:\n" + std::string(SDL_GetError())
+            );
             StormQuit(-1);
         }
 
@@ -44,7 +48,8 @@ namespace Storm
         {
             showSimpleMessageBox(
                 "SDL2 error",
-                "An error occured while initialising the graphics system:\n" + std::string(SDL_GetError()));
+                "An error occured while initialising the graphics system:\n" + std::string(SDL_GetError())
+            );
             StormQuit(-1);
         }
 

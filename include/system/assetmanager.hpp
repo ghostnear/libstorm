@@ -22,8 +22,7 @@ namespace Storm
     class AssetManager
     {
     public:
-        template<typename T>
-        T* getAsset(std::string identifier)
+        template<typename T> T* getAsset(std::string identifier)
         {
             return (T*)_assetMap[identifier];
         }

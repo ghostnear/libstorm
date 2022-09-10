@@ -2,7 +2,7 @@
 #define LIBSTORM_GAME_MANAGER_HPP
 
 #include "deps.hpp"
-#include "nodes/all.hpp"
+#include "system/node.hpp"
 #include <vector>
 #include <thread>
 #include <chrono>
@@ -33,6 +33,7 @@ namespace Storm
         void assignGameManager(GameManager* gm);
 
     protected:
+        Node* root = new Node();
         GameManager* _gm;
     };
 
