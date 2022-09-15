@@ -21,7 +21,7 @@ namespace Storm
         window = SDL_CreateWindow(
             title.c_str(),
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-            size_x, size_y,
+            size.x, size.y,
             flags);
         if(window == nullptr)
             isquit = true;
@@ -61,15 +61,12 @@ namespace Storm
 
     Vec2<int> Window::getSize()
     {
-        return Vec2<int>{
-            .x = win.size_x,
-            .y = win.size_y
-        };
+        return win.size;
     }
 
     void Window::updateSize()
     {
-        SDL_GetWindowSize(getSDL(), &win.size_x, &win.size_y);
+        SDL_GetWindowSize(getSDL(), &win.size.x, &win.size.y);
     }
 
     void Window::onEvent(SDL_Event* ev)
@@ -84,6 +81,7 @@ namespace Storm
 
             // Repaint on exposure
             case SDL_WINDOWEVENT_EXPOSED:
+                Window::updateSize();
                 Graphics::update();
                 break;
 
@@ -95,6 +93,7 @@ namespace Storm
                 win.minimized = false;
                 break;
             case SDL_WINDOWEVENT_RESTORED:
+                Window::updateSize();
                 win.minimized = false;
                 break;
         }

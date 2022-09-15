@@ -46,17 +46,23 @@ namespace Storm
             // Different screen configs per build platform
         #ifdef BUILD_TYPE_VITA
             // 960 x 544 screen, fullscreen
-            int size_x = 960, size_y = 544;
+            Vec2<int> size {
+                .x = 960,
+                .y = 544
+            };
             uint32_t fullscreen_type = SDL_WINDOW_FULLSCREEN;
             bool fullscreen = true;
             bool minimized = false;
         #else
             // 540 x 540 screen, no fullscreen
-            int size_x = 540, size_y = 540;
+            Vec2<int> size {
+                .x = 540,
+                .y = 540
+            };
             uint32_t fullscreen_type = 0;
             bool minimized = false;
             bool fullscreen = false;
-        #endif 
+        #endif
     };
 }
 

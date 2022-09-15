@@ -22,6 +22,11 @@ namespace Storm
             i -> draw();
     }
 
+    double GameManager::getDeltaTime()
+    {
+        return gm._dt;
+    }
+
     void GameManager::update()
     {
         // Update delta time

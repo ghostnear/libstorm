@@ -45,6 +45,7 @@ namespace Storm
         static void delay();
         static void update();
         static GameManager& getInstance();
+        static double getDeltaTime();
         static void pushState(State* newState);
         static void popState();
         static void limitFPS(int32_t newLimit);

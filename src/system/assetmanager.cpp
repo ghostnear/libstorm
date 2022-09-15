@@ -1,8 +1,9 @@
 #include "assetmanager.hpp"
 
-// TODO: all of this
-
 namespace Storm
 {
+    void AssetManager::load(std::string path)
+    {
 
+    }
 };
