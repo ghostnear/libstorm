@@ -2,7 +2,6 @@
 #define LIBSTORM_ASSET_MANAGER_HPP
 
 #include "deps.hpp"
-#include "external/nlohmann_json.hpp"
 #include <map>
 #include <memory>
 
