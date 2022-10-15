@@ -2,8 +2,5 @@
 
 namespace Storm
 {
-    void AssetManager::load(std::string path)
-    {
-
-    }
+    
 };

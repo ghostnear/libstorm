@@ -9,17 +9,6 @@
 
 namespace Storm
 {
-    namespace Utils
-    {
-        template<typename T>
-        inline std::string to_stringt(T arg)
-        {
-            std::ostringstream ss;
-            ss << arg;
-            return ss.str();
-        }
-    };
-
     class GameManager;
 
     class State

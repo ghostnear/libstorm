@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.9)
 add_library(
     libStorm
     STATIC
+    "src/deps.cpp"
     "src/libstorm.cpp"
     "src/system/input.cpp"
     "src/system/window.cpp"

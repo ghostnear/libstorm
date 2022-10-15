@@ -75,14 +75,4 @@ namespace Storm
         // Any return value that is not 0 is an error.
         return (ret_val == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
     }
-
-    namespace Utils
-    {
-        // Returns the area in which 2 rectangles intersect or nullptr otherwise.
-        SDL_Rect* intersectRects(SDL_Rect* a, SDL_Rect* b)
-        {
-            SDL_Rect* result = new SDL_Rect();
-            return (SDL_IntersectRect(a, b, result) == SDL_TRUE) ? result : nullptr;
-        }
-    }
 }
