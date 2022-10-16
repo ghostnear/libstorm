@@ -5,6 +5,7 @@
 #include "window.hpp"
 #include "external/json.hpp"
 #include <fstream>
+#include <thread>
 #include <queue>
 #include <unordered_map>
 #include <memory>
@@ -94,14 +95,13 @@ namespace Storm
 
     #undef assets
 
-    #define assetThread AssetLoader::getInstance()._t
-    #define assetCC AssetLoader::getInstance()._currentCount
-    #define assetMC AssetLoader::getInstance()._maxCount
-
+    // Asset type handler
     enum AssetType
     {
-        Font = 0
+        Unknown = 0,
+        Font
     };
+    AssetType getAssetTypeFromName(std::string name);
 
     class AssetLoader
     {
@@ -111,69 +111,19 @@ namespace Storm
             void operator=(AssetLoader const&)  = delete;
 
             // Methods
-            static AssetLoader& getInstance()
-            {
-                static AssetLoader instance;
-                return instance;
-            }
-
-            // Reset counts
-            static void reset()
-            {
-                assetCC = assetMC = 0;
-            }
+            static AssetLoader& getInstance();
+            static void reset();
+            static double getPercentage();
+            static size_t getCount();
+            static size_t getMaxCount();
 
             // Loads a JSON descriptor, adding the assets to the queue.
             // The queue gets loaded on a separate thread.
-            static void load(std::string path)
-            {
-                std::ifstream fin(path);
-
-                // If no file, stop and display error
-                if(fin.fail())
-                {
-                    showSimpleMessageBox("Error", "Could not find JSON asset descriptor at path: " + path, SDL_MESSAGEBOX_ERROR, Window::getInstance().getSDL());
-                    return;
-                }
-
-                // Load JSON
-                json data = json::parse(fin);
-                std::string pathWithoutFilename = Utils::removeFileNameFromPath(path);
-                for(auto assetJSON : data)
-                {
-                    showSimpleMessageBox("Error", assetJSON.dump(), SDL_MESSAGEBOX_ERROR, Window::getInstance().getSDL());
-                    if(!assetJSON.is_null())
-                    {
-                        // Recursive load
-                        if(assetJSON["type"] == "json")
-                        {
-                            // TODO: check if path exists
-                            load(pathWithoutFilename + assetJSON["path"].get<std::string>());
-                        }
-                        // Font loading
-                        else if(assetJSON["type"] == "font")
-                        {
-                            // TODO: Add to queue with args and stuff here
-                            // Add the type to _q, the name to _qName, data to _qArgs.
-
-                            // TODO: figure out why this causes an infinite loop??????????
-                            //assetMC += 1;
-                            //assetCC += 1;
-                        }
-                    }
-                    else
-                    {
-                        // TODO: throw invalid asset error
-                    }
-                }
-            }
+            static void load(std::string path);
 
         private:
             // Constructor should be private
-            AssetLoader()
-            {
-                reset();
-            }
+            AssetLoader() {}
 
             // Asset thread
             std::thread* _t = nullptr;
@@ -184,10 +134,8 @@ namespace Storm
             std::queue<void*> _qArgs;
 
             // Queue infos
-            int _currentCount, _maxCount;
+            size_t _maxCount = 0;
     };
-
-    #undef assetThread
 };
 
 #endif

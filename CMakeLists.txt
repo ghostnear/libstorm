@@ -9,6 +9,7 @@ add_library(
     "src/system/input.cpp"
     "src/system/window.cpp"
     "src/system/graphics.cpp"
+    "src/system/assetmanager.cpp"
     "src/system/gamemanager.cpp"
     "src/prefabs/textNode.cpp"
 )
