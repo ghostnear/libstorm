@@ -103,6 +103,13 @@ namespace Storm
     };
     AssetType getAssetTypeFromName(std::string name);
 
+    struct AssetToLoad
+    {
+        AssetType type;
+        std::string name;
+        void* args;
+    };
+
     class AssetLoader
     {
         public:
@@ -111,6 +118,8 @@ namespace Storm
             void operator=(AssetLoader const&)  = delete;
 
             // Methods
+            static void start();
+            static void finish();
             static AssetLoader& getInstance();
             static void reset();
             static double getPercentage();
@@ -122,6 +131,8 @@ namespace Storm
             static void load(std::string path);
 
         private:
+            static void doAssetLoading();
+
             // Constructor should be private
             AssetLoader() {}
 
@@ -129,9 +140,7 @@ namespace Storm
             std::thread* _t = nullptr;
 
             // Queues for all asset args
-            std::queue<AssetType> _q;
-            std::queue<std::string> _qName;
-            std::queue<void*> _qArgs;
+            std::queue<AssetToLoad> _q;
 
             // Queue infos
             size_t _maxCount = 0;

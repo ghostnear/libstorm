@@ -1,4 +1,4 @@
-#include "system/assetmanager.hpp"
+#include "system/assetManager.hpp"
 
 namespace Storm
 {
@@ -10,8 +10,24 @@ namespace Storm
     }
 
     #define theLoader AssetLoader::getInstance()
-    #define loaderMC theLoader._maxCount
-    #define resetLoader theLoader.reset
+
+    void AssetLoader::start()
+    {
+        // Can't start an already started thread
+        if(theLoader._t != nullptr)
+            return;
+        theLoader._t = new std::thread(AssetLoader::doAssetLoading);
+    }
+
+    void AssetLoader::finish()
+    {
+        // Can't join an unstarted thread
+        if(theLoader._t == nullptr)
+            return;
+        theLoader._t -> join();
+        delete theLoader._t;
+        theLoader._t = nullptr;
+    }
 
     AssetLoader& AssetLoader::getInstance()
     {
@@ -21,7 +37,7 @@ namespace Storm
 
     void AssetLoader::reset()
     {
-        loaderMC = 0;
+        theLoader._maxCount = 0;
     }
 
     double AssetLoader::getPercentage()
@@ -38,7 +54,28 @@ namespace Storm
 
     size_t AssetLoader::getMaxCount()
     {
-        return loaderMC;
+        return theLoader._maxCount;
+    }
+
+    void AssetLoader::doAssetLoading()
+    {
+        // Do the loading while the queue is not empty, do it at a rate of max 1000 assets per sec
+        // (should be way more than enough) until I find a way to deal with this (TODO btw)
+        while(!theLoader._q.empty())
+        {
+            AssetToLoad currentAsset = theLoader._q.front();
+            theLoader._q.pop();
+            switch(currentAsset.type)
+            {
+                case AssetType::Font:
+                    // TODO: do font loading
+                    break;
+                default:
+                    // Ignore
+                    break;
+            }
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        }
     }
 
     void AssetLoader::load(std::string path)
@@ -62,18 +99,20 @@ namespace Storm
                 // Recursive load
                 if(assetJSON["type"] == "json")
                 {
-                    // TODO: check if path exists
+                    // TODO: check if path actually exists
                     load(pathWithoutFilename + assetJSON["path"].get<std::string>());
                 }
                 // General loading
                 else
                 {
                     // Push the asset to the loading thread.
-                    theLoader._q.push(getAssetTypeFromName(assetJSON["type"].get<std::string>()));
-                    theLoader._qName.push(assetJSON["name"].get<std::string>());
+                    AssetToLoad newAsset;
                     json* newPtr = new json(assetJSON["data"]); // Make sure to delete this in the loading thread
-                    theLoader._qArgs.push((void*)newPtr);
-                    loaderMC += 1;
+                    newAsset.type = getAssetTypeFromName(assetJSON["type"].get<std::string>());
+                    newAsset.name = assetJSON["name"].get<std::string>();
+                    newAsset.args = (void*)newPtr;
+                    theLoader._q.push(newAsset);
+                    theLoader._maxCount += 1;
                 }
             }
             else
@@ -82,6 +121,4 @@ namespace Storm
     }
     
     #undef theLoader
-    #undef loaderMC
-    #undef resetLoader
 };

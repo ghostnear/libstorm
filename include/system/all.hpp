@@ -6,7 +6,9 @@
 #include "window.hpp"
 #include "structs.hpp"
 #include "graphics.hpp"
-#include "gamemanager.hpp"
-#include "assetmanager.hpp"
+#include "assetTypes.hpp"
+#include "gameManager.hpp"
+#include "assetManager.hpp"
+
 
 #endif

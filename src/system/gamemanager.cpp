@@ -1,4 +1,4 @@
-#include "system/gamemanager.hpp"
+#include "system/gameManager.hpp"
 
 namespace Storm
 {
