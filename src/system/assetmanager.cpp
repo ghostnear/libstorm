@@ -9,6 +9,22 @@ namespace Storm
         return AssetType::Unknown;
     }
 
+    void FontAsset::load(AssetToLoad metadata)
+    {
+        _path = metadata.path;
+        if(metadata.args)
+        {
+            json args = *((json*)metadata.args);
+            if(args["sizes"].is_array())
+                for(auto x : args["sizes"])
+                {
+                    // No sizes are loaded yet so getting should load them on the fly.
+                    get(x);
+                }
+        }
+
+    }
+
     #define theLoader AssetLoader::getInstance()
 
     void AssetLoader::start()
@@ -44,7 +60,7 @@ namespace Storm
     {
         if(AssetLoader::getCount() == 0)
             return 1;
-        return 1.0 - (1.0 * AssetLoader::getMaxCount() / AssetLoader::getCount());
+        return 1.0 - (1.0 * AssetLoader::getCount() / AssetLoader::getMaxCount());
     }
 
     size_t AssetLoader::getCount()
@@ -61,20 +77,26 @@ namespace Storm
     {
         // Do the loading while the queue is not empty, do it at a rate of max 1000 assets per sec
         // (should be way more than enough) until I find a way to deal with this (TODO btw)
-        while(!theLoader._q.empty())
+        while(!theLoader._q.empty() && !Window::shouldClose())
         {
             AssetToLoad currentAsset = theLoader._q.front();
             theLoader._q.pop();
+
+            // Load the asset based on type
+            Asset* newAsset;
             switch(currentAsset.type)
             {
                 case AssetType::Font:
-                    // TODO: do font loading
+                    newAsset = new FontAsset();
                     break;
+                    
                 default:
                     // Ignore
                     break;
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            newAsset -> load(currentAsset);
+            AssetManager::saveAsset(newAsset, currentAsset.name);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
     }
 
@@ -110,6 +132,7 @@ namespace Storm
                     json* newPtr = new json(assetJSON["data"]); // Make sure to delete this in the loading thread
                     newAsset.type = getAssetTypeFromName(assetJSON["type"].get<std::string>());
                     newAsset.name = assetJSON["name"].get<std::string>();
+                    newAsset.path = pathWithoutFilename + assetJSON["path"].get<std::string>();
                     newAsset.args = (void*)newPtr;
                     theLoader._q.push(newAsset);
                     theLoader._maxCount += 1;

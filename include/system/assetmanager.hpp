@@ -14,14 +14,33 @@ using json = nlohmann::json;
 
 namespace Storm
 {
-    // Asset interface
-    class Asset {};
+    // Asset type handler
+    enum AssetType
+    {
+        Unknown = 0,
+        Font
+    };
+    AssetType getAssetTypeFromName(std::string name);
 
-    class Font : public Asset
+    struct AssetToLoad
+    {
+        AssetType type;
+        std::string name;
+        std::string path;
+        void* args;
+    };
+
+    // Asset interface
+    class Asset
     {
     public:
-        // Saves the path of the asset.
-        void savePath(std::string path) {   _path = path;   }
+        virtual void load(AssetToLoad metadata) = 0;
+    };
+
+    class FontAsset : public Asset
+    {
+    public:
+        void load(AssetToLoad metadata) override;
 
         // Gets the font for a specific size.
         TTF_Font* get(size_t size)
@@ -76,7 +95,7 @@ namespace Storm
                 static AssetManager instance;
                 return instance;
             }
-            template<typename T> static void saveAsset(T* assetPointer, std::string identifier)
+            static void saveAsset(Asset* assetPointer, std::string identifier)
             {
                 assets[identifier] = assetPointer;
             }
@@ -94,21 +113,6 @@ namespace Storm
     };
 
     #undef assets
-
-    // Asset type handler
-    enum AssetType
-    {
-        Unknown = 0,
-        Font
-    };
-    AssetType getAssetTypeFromName(std::string name);
-
-    struct AssetToLoad
-    {
-        AssetType type;
-        std::string name;
-        void* args;
-    };
 
     class AssetLoader
     {

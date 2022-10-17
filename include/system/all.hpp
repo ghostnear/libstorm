@@ -1,6 +1,7 @@
 #ifndef LIBSTORM_SYSTEM_ALL_HPP
 #define LIBSTORM_SYSTEM_ALL_HPP
 
+#include "deps.hpp"
 #include "node.hpp"
 #include "input.hpp"
 #include "window.hpp"
