@@ -21,8 +21,8 @@ namespace Storm
                 .y = 0
             },
             .size = {
-                .x = 100,
-                .y = 100
+                .x = 150,
+                .y = 50
             }
         };
         std::string initialText = "";
@@ -33,6 +33,9 @@ namespace Storm
     public:
         // Constructor
         TextNode(TextNodeConfig config);
+
+        static void redrawTextNode(Node* slf);
+        static void textNodeDraw(Node* slf);
     };
 };
 

@@ -2,7 +2,7 @@
 
 namespace Storm
 {
-    void redrawText(Node* slf)
+    void TextNode::redrawTextNode(Node* slf)
     {
         auto font = slf -> getComponent<FontAsset>("text_font") -> get(*(slf -> getComponent<size_t>("text_size")));
         auto texturePtr = slf -> getComponent<SDL_Texture>("text_texture");
@@ -23,16 +23,17 @@ namespace Storm
         else
         {
             SDL_DestroyTexture(texturePtr);
-            redrawText(slf);
+            slf -> addComponent<SDL_Texture>(nullptr, "text_texture");
+            TextNode::redrawTextNode(slf);
         }
     }
 
-    void textNodeDraw(Node* slf)
+    void TextNode::textNodeDraw(Node* slf)
     {
         // Rebuild texture if needed (needs the flag set on each change)
         auto redraw_flag = slf -> getComponent<bool>("needs_redrawing");
         if(*redraw_flag)
-            redrawText(slf), *redraw_flag = false;
+            TextNode::redrawTextNode(slf), *redraw_flag = false;
 
         // Draw the text to the screen
         auto boundaries = slf -> getComponent<Rect<double>>("boundaries");
@@ -61,6 +62,6 @@ namespace Storm
         this -> addComponent<size_t>(new size_t(config.size), "text_size");
         this -> addComponent<FontAsset>(config.font, "text_font");
         this -> addComponent<std::string>(new std::string(config.initialText), "text");
-        this -> addFunction(textNodeDraw, "draw");
+        this -> addFunction(TextNode::textNodeDraw, "draw");
     }
 }

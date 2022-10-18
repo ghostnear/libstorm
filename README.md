@@ -7,6 +7,13 @@ Add the directory of the lib to your CMake project and include it using add_subd
 
 ## Requirements
 
+### Windows
+- vcpkg installed and available to use trough the commandline (added to PATH).
+- preferably use scoop to install, as it is much easier.
+- run the install-deps.bat script from the scripts folder.
+- change the vcpkg path from the build.bat file to point in the right direction.
+- TODO: make use of an environment variable or something.
+
 ### Unix
 
 - libsdl2-dev for Ubuntu, sdl2 for Arch.
