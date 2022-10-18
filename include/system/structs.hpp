@@ -16,9 +16,15 @@ namespace Storm
     };
 
     template <typename T>
+    struct Rect
+    {
+        Vec2<T> position, size;
+    };
+
+    template <typename T>
     struct Transform2
     {
-        Vec2<T> pos;
+        Vec2<T> position;
         double angle;
     };
 }
