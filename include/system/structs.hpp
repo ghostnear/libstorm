@@ -7,6 +7,17 @@ namespace Storm
     struct Vec2
     {
         T x, y;
+        
+        template <typename Y>
+        Vec2<T> multiplyByComponents(Vec2<Y> arg)
+        {
+            T aux_x = this -> x * arg.x;
+            T aux_y = this -> y * arg.y;
+            return Vec2<T>({
+                .x = aux_x,
+                .y = aux_y
+            });
+        }
     };
 
     template <typename T>

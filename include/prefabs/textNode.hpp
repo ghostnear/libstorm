@@ -9,6 +9,10 @@ namespace Storm
     {
         FontAsset* font = AssetManager::getAsset<FontAsset>("font_default");
         size_t size = 12;
+        Vec2<double> textOffset = {
+            .x = 0,
+            .y = 0
+        };
         SDL_Color color = {
             .r = 0xFF,
             .g = 0xFF,

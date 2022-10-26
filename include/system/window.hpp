@@ -56,7 +56,7 @@ namespace Storm
         #else
             // 540 x 540 screen, no fullscreen
             Vec2<int> size {
-                .x = 540,
+                .x = 960,
                 .y = 540
             };
             uint32_t fullscreen_type = 0;

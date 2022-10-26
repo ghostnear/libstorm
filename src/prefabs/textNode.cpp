@@ -10,18 +10,22 @@ namespace Storm
         // Invalid pointer, create texture
         if(texturePtr == nullptr)
         {
-            texturePtr = SDL_CreateTextureFromSurface(
-                Graphics::getSDL(),
+            SDL_Surface* renderedText =
                 TTF_RenderText_Solid(
                     font,
                     slf -> getComponent<std::string>("text") -> c_str(),
                     textColor
-                )
+                );
+            texturePtr = SDL_CreateTextureFromSurface(
+                Graphics::getSDL(),
+                renderedText
             );
+            SDL_FreeSurface(renderedText);
             slf -> addComponent<SDL_Texture>(texturePtr, "text_texture");
         }
         else
         {
+            // Invalidate and force redraw
             SDL_DestroyTexture(texturePtr);
             slf -> addComponent<SDL_Texture>(nullptr, "text_texture");
             TextNode::redrawTextNode(slf);
@@ -37,6 +41,7 @@ namespace Storm
 
         // Draw the text to the screen
         auto boundaries = slf -> getComponent<Rect<double>>("boundaries");
+        auto textOffset = slf -> getComponent<Vec2<double>>("text_offset");
         auto textureToDraw = slf -> getComponent<SDL_Texture>("text_texture");
         // TODO: dont make this on the heap, it's very costly
         SDL_Rect result_rect = {
@@ -45,6 +50,8 @@ namespace Storm
             .w = int(boundaries -> size.x),
             .h = int(boundaries -> size.y)
         };
+        result_rect.x -= int(result_rect.w * textOffset -> x);
+        result_rect.y -= int(result_rect.h * textOffset -> y);
         SDL_RenderCopy(
             Graphics::getSDL(),
             textureToDraw,
@@ -55,6 +62,7 @@ namespace Storm
 
     TextNode::TextNode(TextNodeConfig config)
     {
+        this -> addComponent<Vec2<double>>(new Vec2<double>(config.textOffset), "text_offset");
         this -> addComponent<bool>(new bool(true), "needs_redrawing");
         this -> addComponent<Rect<double>>(new Rect<double>(config.boundaries), "boundaries");
         this -> addComponent<SDL_Texture>(nullptr, "text_texture");

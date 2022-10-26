@@ -14,15 +14,15 @@ namespace Storm
         _path = metadata.path;
         if(metadata.args)
         {
-            json args = *((json*)metadata.args);
-            if(args["sizes"].is_array())
-                for(auto x : args["sizes"])
-                {
-                    // No sizes are loaded yet so getting should load them on the fly.
+            json* args = (json*)metadata.args;
+            
+            // No sizes are loaded yet so getting should load them on the fly.
+            if((*args)["sizes"].is_array())
+                for(auto x : (*args)["sizes"])
                     get(x);
-                }
+                
+            delete args;
         }
-
     }
 
     #define theLoader AssetLoader::getInstance()
@@ -129,11 +129,11 @@ namespace Storm
                 {
                     // Push the asset to the loading thread.
                     AssetToLoad newAsset;
-                    json* newPtr = new json(assetJSON["data"]); // Make sure to delete this in the loading thread
                     newAsset.type = getAssetTypeFromName(assetJSON["type"].get<std::string>());
                     newAsset.name = assetJSON["name"].get<std::string>();
                     newAsset.path = pathWithoutFilename + assetJSON["path"].get<std::string>();
-                    newAsset.args = (void*)newPtr;
+                    newAsset.args = (void*)new json(assetJSON["data"]);
+                    // ! Make sure to delete this in the loading thread for the asset type !
                     theLoader._q.push(newAsset);
                     theLoader._maxCount += 1;
                 }
