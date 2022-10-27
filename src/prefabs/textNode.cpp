@@ -21,13 +21,16 @@ namespace Storm
                 renderedText
             );
             SDL_FreeSurface(renderedText);
-            slf -> addComponent<SDL_Texture>(texturePtr, "text_texture");
+            slf -> addComponent<SDL_Texture>(
+                "text_texture",
+                texturePtr
+            );
         }
         else
         {
             // Invalidate and force redraw
             SDL_DestroyTexture(texturePtr);
-            slf -> addComponent<SDL_Texture>(nullptr, "text_texture");
+            slf -> removeComponent("text_texture");
             TextNode::redrawTextNode(slf);
         }
     }
@@ -43,7 +46,7 @@ namespace Storm
         auto boundaries = slf -> getComponent<Rect<double>>("boundaries");
         auto textOffset = slf -> getComponent<Vec2<double>>("text_offset");
         auto textureToDraw = slf -> getComponent<SDL_Texture>("text_texture");
-        // TODO: dont make this on the heap, it's very costly
+        // TODO: stop using the stack here
         SDL_Rect result_rect = {
             .x = int(boundaries -> position.x),
             .y = int(boundaries -> position.y),
@@ -62,14 +65,38 @@ namespace Storm
 
     TextNode::TextNode(TextNodeConfig config)
     {
-        this -> addComponent<Vec2<double>>(new Vec2<double>(config.textOffset), "text_offset");
-        this -> addComponent<bool>(new bool(true), "needs_redrawing");
-        this -> addComponent<Rect<double>>(new Rect<double>(config.boundaries), "boundaries");
-        this -> addComponent<SDL_Texture>(nullptr, "text_texture");
-        this -> addComponent<SDL_Color>(new SDL_Color(config.color), "text_color");
-        this -> addComponent<size_t>(new size_t(config.size), "text_size");
-        this -> addComponent<FontAsset>(config.font, "text_font");
-        this -> addComponent<std::string>(new std::string(config.initialText), "text");
+        this -> addComponent<Vec2<double>>(
+            "text_offset",
+            new Vec2<double>(config.textOffset)
+        );
+        this -> addComponent<bool>(
+            "needs_redrawing",
+            new bool(true)
+        );
+        this -> addComponent<Rect<double>>(
+            "boundaries",
+            new Rect<double>(config.boundaries)
+        );
+        this -> addComponent<SDL_Texture>(
+            "text_texture",
+            nullptr
+        );
+        this -> addComponent<SDL_Color>(
+            "text_color",
+            new SDL_Color(config.color)
+        );
+        this -> addComponent<size_t>(
+            "text_size",
+            new size_t(config.size)
+        );
+        this -> addComponent<FontAsset>(
+            "text_font",
+            config.font
+        );
+        this -> addComponent<std::string>(
+            "text",
+            new std::string(config.initialText)
+        );
         this -> addFunction(TextNode::textNodeDraw, "draw");
     }
 }

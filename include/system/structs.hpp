@@ -11,6 +11,7 @@ namespace Storm
         template <typename Y>
         Vec2<T> multiplyByComponents(Vec2<Y> arg)
         {
+            // TODO: simplify
             T aux_x = this -> x * arg.x;
             T aux_y = this -> y * arg.y;
             return Vec2<T>({

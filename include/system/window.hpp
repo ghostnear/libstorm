@@ -54,7 +54,7 @@ namespace Storm
             bool fullscreen = true;
             bool minimized = false;
         #else
-            // 540 x 540 screen, no fullscreen
+            // 960 x 540 screen, no fullscreen
             Vec2<int> size {
                 .x = 960,
                 .y = 540

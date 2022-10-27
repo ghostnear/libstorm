@@ -19,7 +19,7 @@ namespace Storm
         std::map<std::string, NodeFunction> _functions;
     public:
         // Add a component of specified type. Shouldn't have empty names.
-        template<typename T> void addComponent(T* pointer, std::string name)
+        template<typename T> void addComponent(std::string name, T* pointer)
         {
             _components[name] = (void*)pointer;
         }
@@ -31,6 +31,15 @@ namespace Storm
         {
             return (T*)_components[name];
         }
+
+        // Sets the component to a specified value and frees the value if required
+        template<typename T> void setComponent(std::string name, T* value, bool free = false)
+        {
+            if(free)
+                delete (T*)_components[name];
+            addComponent(name, value);
+        }
+
 
         // Removes a reference to a component. Data freeing is left to the user's discretion. (TODO not do that?)
         void removeComponent(std::string name)
