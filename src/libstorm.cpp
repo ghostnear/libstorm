@@ -1,4 +1,4 @@
-#include "libstorm.hpp"
+#include "libStorm.hpp"
 
 // Major TODOs:
 // TODO: optimise compiling speed by fixing the header inclusion mess

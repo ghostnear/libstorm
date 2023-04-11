@@ -1,5 +1,5 @@
-#ifndef LIBSTORM_STRUCTS_HPP
-#define LIBSTORM_STRUCTS_HPP
+#ifndef LIBSTORM_MATH_ALL
+#define LIBSTORM_MATH_ALL
 
 namespace Storm
 {

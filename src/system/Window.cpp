@@ -1,4 +1,5 @@
-#include "system/window.hpp"
+#include "system/Window.hpp"
+#include "system/Graphics.hpp"
 
 namespace Storm
 {

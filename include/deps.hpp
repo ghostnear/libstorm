@@ -6,7 +6,7 @@
 #include <sstream>
 #include <iostream>
 #include <string>
-#include "system/structs.hpp"
+#include "math/all.hpp"
 
 // Platform dependent dependencies
 #ifndef BUILD_TYPE_WIN

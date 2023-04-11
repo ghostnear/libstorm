@@ -2,7 +2,7 @@
 #define LIBSTORM_ASSET_MANAGER_HPP
 
 #include "deps.hpp"
-#include "window.hpp"
+#include "Window.hpp"
 #include "external/json.hpp"
 #include <fstream>
 #include <thread>

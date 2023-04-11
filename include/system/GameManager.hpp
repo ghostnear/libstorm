@@ -2,7 +2,7 @@
 #define LIBSTORM_GAME_MANAGER_HPP
 
 #include "deps.hpp"
-#include "system/node.hpp"
+#include "system/Node.hpp"
 #include <vector>
 #include <thread>
 #include <chrono>

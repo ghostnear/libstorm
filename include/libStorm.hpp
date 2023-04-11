@@ -2,7 +2,9 @@
 #define LIBSTORM_HPP
 
 #include "deps.hpp"
+#include "math/all.hpp"
 #include "system/all.hpp"
+#include "prefabs/all.hpp"
 
 namespace Storm
 {

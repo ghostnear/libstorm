@@ -1,18 +1,18 @@
 cmake_minimum_required(VERSION 3.9)
 
+file(
+    GLOB
+    EXECUTABLE_FILES
+    "src/*.cpp"
+    "src/system/*.cpp"
+    "src/prefabs/*.cpp"
+)
+
 # Add all .cpp files from src
 add_library(
     libStorm
     STATIC
-    "src/deps.cpp"
-    "src/libstorm.cpp"
-    "src/system/input.cpp"
-    "src/system/window.cpp"
-    "src/system/graphics.cpp"
-    "src/system/assetTypes.cpp"
-    "src/system/assetManager.cpp"
-    "src/system/gameManager.cpp"
-    "src/prefabs/textNode.cpp"
+    ${EXECUTABLE_FILES}
 )
 
 # Library properties

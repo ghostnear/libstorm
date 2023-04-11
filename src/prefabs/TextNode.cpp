@@ -1,6 +1,6 @@
-#include "prefabs/textNode.hpp"
+#include "prefabs/TextNode.hpp"
 
-namespace Storm
+namespace Storm::Prefabs
 {
     void TextNode::redrawTextNode(Node* slf)
     {

@@ -1,4 +1,4 @@
-#include "system/assetManager.hpp"
+#include "system/AssetManager.hpp"
 
 namespace Storm
 {

@@ -3,7 +3,7 @@
 
 #include "system/all.hpp"
 
-namespace Storm
+namespace Storm::Prefabs
 {
     struct TextNodeConfig
     {

@@ -2,7 +2,7 @@
 #define LIBSTORM_INPUT_HPP
 
 #include "deps.hpp"
-#include "window.hpp"
+#include "Window.hpp"
 #include <map>
 
 namespace Storm

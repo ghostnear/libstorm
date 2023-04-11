@@ -2,7 +2,6 @@
 #define LIBSTORM_GRAPHICS_HPP
 
 #include "deps.hpp"
-#include "window.hpp"
 
 namespace Storm
 {

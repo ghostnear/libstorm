@@ -1,4 +1,4 @@
-#include "system/input.hpp"
+#include "system/Input.hpp"
 
 // TODO: add key bindings to input so events can occur
 
