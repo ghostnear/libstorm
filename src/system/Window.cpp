@@ -72,7 +72,7 @@ namespace Storm
 
     void Window::onEvent(SDL_Event* ev)
     {
-        switch(ev -> window.event)
+        switch(ev->window.event)
         {
             // If size changed for any reason, resize and repaint
             case SDL_WINDOWEVENT_SIZE_CHANGED:

@@ -17,7 +17,7 @@ namespace Storm
 
     void Input::onKey(SDL_Event* ev, bool pressed)
     {
-        currentKeyboardState[ev -> key.keysym.sym] = pressed;
+        currentKeyboardState[ev->key.keysym.sym] = pressed;
     }
 
     bool Input::isKeyDown(SDL_Keycode key)
@@ -44,7 +44,7 @@ namespace Storm
         SDL_Event* _ev = Input::getInstance()._event;
         while(SDL_PollEvent(_ev))
         {
-            switch(_ev -> type)
+            switch(_ev->type)
             {
                 // App close
                 case SDL_QUIT:

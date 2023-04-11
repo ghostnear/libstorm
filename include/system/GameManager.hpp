@@ -14,8 +14,8 @@ namespace Storm
     class State
     {
     public:
-        virtual void onInit() = 0;
-        virtual void onDestroy() = 0;
+        virtual void on_init() = 0;
+        virtual void on_destroy() = 0;
         virtual void draw() = 0;
         virtual void update(double dt) = 0;
 

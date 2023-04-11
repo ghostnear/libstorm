@@ -40,7 +40,7 @@ namespace Storm
         // Can't join an unstarted thread
         if(theLoader._t == nullptr)
             return;
-        theLoader._t -> join();
+        theLoader._t->join();
         delete theLoader._t;
         theLoader._t = nullptr;
     }
@@ -94,7 +94,7 @@ namespace Storm
                     // Ignore
                     break;
             }
-            newAsset -> load(currentAsset);
+            newAsset->load(currentAsset);
             AssetManager::saveAsset(newAsset, currentAsset.name);
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }

@@ -83,7 +83,7 @@ namespace Storm
         {
             execute(name);
             for(auto x : _children)
-                x.second -> execute(name);
+                x.second->execute(name);
         }
 
         // Add function to function list.

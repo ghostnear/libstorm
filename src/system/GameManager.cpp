@@ -19,7 +19,7 @@ namespace Storm
     {
         // Draw all the states in order
         for(auto i : gm._states)
-            i -> draw();
+            i->draw();
     }
 
     double GameManager::getDeltaTime()
@@ -37,7 +37,7 @@ namespace Storm
         // If no FPS cap just update
         if(gm._fpsLimit < 1)
             for(auto i : gm._states)
-                i -> update(gm._dt);
+                i->update(gm._dt);
         else
         {
             // Compensate for the time passed if it took too long
@@ -46,7 +46,7 @@ namespace Storm
             {
                 gm._dt = 1.0 / gm._fpsLimit;
                 for(auto i : gm._states)
-                    i -> update(gm._dt);
+                    i->update(gm._dt);
                 gm._acc -= 1.0 / gm._fpsLimit;
             }
             // Sleep till next frame
@@ -67,8 +67,8 @@ namespace Storm
         gm._running = true;
 
         // Add new state
-        newState -> onInit();
-        newState -> assignGameManager(&gm);
+        newState->on_init();
+        newState->assignGameManager(&gm);
         gm._states.push_back(newState);
     }
 
