@@ -7,7 +7,7 @@ namespace Storm::Prefabs
 {
     struct TextNodeConfig
     {
-        FontAsset* font = AssetManager::getAsset<FontAsset>("font_default");
+        FontAsset* font = AssetManager::get_asset<FontAsset>("font_default");
         size_t size = 12;
         Vec2<double> textOffset = {
             .x = 0,
@@ -38,8 +38,8 @@ namespace Storm::Prefabs
         // Constructor
         TextNode(TextNodeConfig config);
 
-        static void redrawTextNode(Node* slf);
-        static void textNodeDraw(Node* slf);
+        static void redraw_text_node(Node* slf);
+        static void text_node_draw(Node* slf);
     };
 };
 

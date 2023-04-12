@@ -2,26 +2,26 @@
 
 namespace Storm::Prefabs
 {
-    void TextNode::redrawTextNode(Node* slf)
+    void TextNode::redraw_text_node(Node* slf)
     {
-        auto font = slf->getComponent<FontAsset>("text_font")->get(*(slf->getComponent<size_t>("text_size")));
-        auto texturePtr = slf->getComponent<SDL_Texture>("text_texture");
-        auto textColor = *(slf->getComponent<SDL_Color>("text_color"));
+        auto font = slf->get_component<FontAsset>("text_font")->get(*(slf->get_component<size_t>("text_size")));
+        auto texturePtr = slf->get_component<SDL_Texture>("text_texture");
+        auto textColor = *(slf->get_component<SDL_Color>("text_color"));
         // Invalid pointer, create texture
         if(texturePtr == nullptr)
         {
             SDL_Surface* renderedText =
                 TTF_RenderText_Solid(
                     font,
-                    slf->getComponent<std::string>("text")->c_str(),
+                    slf->get_component<std::string>("text")->c_str(),
                     textColor
                 );
             texturePtr = SDL_CreateTextureFromSurface(
-                Graphics::getSDL(),
+                Graphics::get_SDL(),
                 renderedText
             );
             SDL_FreeSurface(renderedText);
-            slf->addComponent<SDL_Texture>(
+            slf->add_component<SDL_Texture>(
                 "text_texture",
                 texturePtr
             );
@@ -30,22 +30,22 @@ namespace Storm::Prefabs
         {
             // Invalidate and force redraw
             SDL_DestroyTexture(texturePtr);
-            slf->removeComponent("text_texture");
-            TextNode::redrawTextNode(slf);
+            slf->remove_component("text_texture");
+            TextNode::redraw_text_node(slf);
         }
     }
 
-    void TextNode::textNodeDraw(Node* slf)
+    void TextNode::text_node_draw(Node* slf)
     {
         // Rebuild texture if needed (needs the flag set on each change)
-        auto redraw_flag = slf->getComponent<bool>("needs_redrawing");
+        auto redraw_flag = slf->get_component<bool>("needs_redrawing");
         if(*redraw_flag)
-            TextNode::redrawTextNode(slf), *redraw_flag = false;
+            TextNode::redraw_text_node(slf), *redraw_flag = false;
 
         // Draw the text to the screen
-        auto boundaries = slf->getComponent<Rect<double>>("boundaries");
-        auto textOffset = slf->getComponent<Vec2<double>>("text_offset");
-        auto textureToDraw = slf->getComponent<SDL_Texture>("text_texture");
+        auto boundaries = slf->get_component<Rect<double>>("boundaries");
+        auto textOffset = slf->get_component<Vec2<double>>("text_offset");
+        auto textureToDraw = slf->get_component<SDL_Texture>("text_texture");
         // TODO: stop using the stack here
         SDL_Rect result_rect = {
             .x = int(boundaries->position.x),
@@ -56,7 +56,7 @@ namespace Storm::Prefabs
         result_rect.x -= int(result_rect.w * textOffset->x);
         result_rect.y -= int(result_rect.h * textOffset->y);
         SDL_RenderCopy(
-            Graphics::getSDL(),
+            Graphics::get_SDL(),
             textureToDraw,
             NULL,
             &result_rect
@@ -65,38 +65,41 @@ namespace Storm::Prefabs
 
     TextNode::TextNode(TextNodeConfig config)
     {
-        addComponent<Vec2<double>>(
+        add_component<Vec2<double>>(
             "text_offset",
             new Vec2<double>(config.textOffset)
         );
-        addComponent<bool>(
+        add_component<bool>(
             "needs_redrawing",
             new bool(true)
         );
-        addComponent<Rect<double>>(
+        add_component<Rect<double>>(
             "boundaries",
             new Rect<double>(config.boundaries)
         );
-        addComponent<SDL_Texture>(
+        add_component<SDL_Texture>(
             "text_texture",
             nullptr
         );
-        addComponent<SDL_Color>(
+        add_component<SDL_Color>(
             "text_color",
             new SDL_Color(config.color)
         );
-        addComponent<size_t>(
+        add_component<size_t>(
             "text_size",
             new size_t(config.size)
         );
-        addComponent<FontAsset>(
+        add_component<FontAsset>(
             "text_font",
             config.font
         );
-        addComponent<std::string>(
+        add_component<std::string>(
             "text",
             new std::string(config.initialText)
         );
-        addFunction(TextNode::textNodeDraw, "draw");
+        add_function(
+            "draw",
+            TextNode::text_node_draw
+        );
     }
 }

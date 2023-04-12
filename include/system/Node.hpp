@@ -19,7 +19,7 @@ namespace Storm
         std::map<std::string, NodeFunction> _functions;
     public:
         // Add a component of specified type. Shouldn't have empty names.
-        template<typename T> void addComponent(std::string name, T* pointer)
+        template<typename TElem> void add_component(std::string name, TElem* pointer)
         {
             _components[name] = (void*)pointer;
         }
@@ -27,46 +27,45 @@ namespace Storm
         /* ! Component types should be managed by the user, mismatching them can cause issues. ! */
 
         // Gets a component and returns as specified type.
-        template<typename T> T* getComponent(std::string name)
+        template<typename TElem> TElem* get_component(std::string name)
         {
-            return (T*)_components[name];
+            return (TElem*)_components[name];
         }
 
         // Sets the component to a specified value and frees the value if required
-        template<typename T> void setComponent(std::string name, T* value, bool free = false)
+        template<typename TElem> void set_component(std::string name, TElem* value, bool free = false)
         {
             if(free)
-                delete (T*)_components[name];
-            addComponent(name, value);
+                delete (TElem*)_components[name];
+            add_component(name, value);
         }
 
-
         // Removes a reference to a component. Data freeing is left to the user's discretion. (TODO not do that?)
-        void removeComponent(std::string name)
+        void remove_component(std::string name)
         {
             _components[name] = nullptr;
         }
 
         // Add a child with a specified name. If empty, generate one (TODO).
-        void addChild(Node* pointer, std::string name = "")
+        void add_child(Node* pointer, std::string name = "")
         {
             _children[name] = pointer;
         }
 
         // Gets a specific child.
-        Node* getChild(std::string name)
+        Node* get_child(std::string name)
         {
             return _children[name];
         }
 
         // Returns a reference to the children map.
-        std::map<std::string, Node*>* getChildren()
+        std::map<std::string, Node*>* get_children()
         {
             return &_children;
         }
 
         // Remove a reference to a child. Data freeing is left to the user's discretion. (TODO not do that?)
-        void removeChild(std::string name)
+        void remove_child(std::string name)
         {
             _children[name] = nullptr;
         }
@@ -79,7 +78,7 @@ namespace Storm
         }
 
         // Execute the function on self and on all children.
-        void executeAll(std::string name)
+        void execute_all(std::string name)
         {
             execute(name);
             for(auto x : _children)
@@ -87,13 +86,13 @@ namespace Storm
         }
 
         // Add function to function list.
-        void addFunction(NodeFunction func, std::string name)
+        void add_function(std::string name, NodeFunction func)
         {
             _functions[name] = func;
         }
 
         // Delete a function
-        void deleteFunction(std::string name)
+        void delete_function(std::string name)
         {
             _functions[name] = NodeFunction(nullptr);
         }

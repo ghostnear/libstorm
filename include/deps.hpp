@@ -9,7 +9,7 @@
 #include "math/all.hpp"
 
 // Platform dependent dependencies
-#ifndef BUILD_TYPE_WIN
+#ifndef WIN
     #include <SDL2/SDL.h>
     #include <SDL2/SDL_image.h>
     #include <SDL2/SDL_ttf.h>
@@ -19,7 +19,7 @@
     #include <SDL_ttf.h>
 #endif
 
-#ifdef BUILD_TYPE_VITA
+#ifdef VITA
     #include <psp2/kernel/processmgr.h>
 #endif
 

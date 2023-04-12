@@ -2,7 +2,7 @@
 
 namespace Storm
 {
-    AssetType getAssetTypeFromName(std::string name)
+    AssetType get_asset_type_from_name(std::string name)
     {
         if(name == "font")
             return AssetType::Font;
@@ -25,14 +25,14 @@ namespace Storm
         }
     }
 
-    #define theLoader AssetLoader::getInstance()
+    #define theLoader AssetLoader::get_instance()
 
     void AssetLoader::start()
     {
         // Can't start an already started thread
         if(theLoader._t != nullptr)
             return;
-        theLoader._t = new std::thread(AssetLoader::doAssetLoading);
+        theLoader._t = new std::thread(AssetLoader::load_assets);
     }
 
     void AssetLoader::finish()
@@ -45,7 +45,7 @@ namespace Storm
         theLoader._t = nullptr;
     }
 
-    AssetLoader& AssetLoader::getInstance()
+    AssetLoader& AssetLoader::get_instance()
     {
         static AssetLoader instance;
         return instance;
@@ -56,28 +56,28 @@ namespace Storm
         theLoader._maxCount = 0;
     }
 
-    double AssetLoader::getPercentage()
+    double AssetLoader::get_percentage()
     {
-        if(AssetLoader::getCount() == 0)
+        if(AssetLoader::get_count() == 0)
             return 1;
-        return 1.0 - (1.0 * AssetLoader::getCount() / AssetLoader::getMaxCount());
+        return 1.0 - (1.0 * AssetLoader::get_count() / AssetLoader::get_max_count());
     }
 
-    size_t AssetLoader::getCount()
+    size_t AssetLoader::get_count()
     {
         return theLoader._q.size();
     }
 
-    size_t AssetLoader::getMaxCount()
+    size_t AssetLoader::get_max_count()
     {
         return theLoader._maxCount;
     }
 
-    void AssetLoader::doAssetLoading()
+    void AssetLoader::load_assets()
     {
         // Do the loading while the queue is not empty, do it at a rate of max 1000 assets per sec
         // (should be way more than enough) until I find a way to deal with this (TODO btw)
-        while(!theLoader._q.empty() && !Window::shouldClose())
+        while(!theLoader._q.empty() && !Window::should_close())
         {
             AssetToLoad currentAsset = theLoader._q.front();
             theLoader._q.pop();
@@ -95,7 +95,7 @@ namespace Storm
                     break;
             }
             newAsset->load(currentAsset);
-            AssetManager::saveAsset(newAsset, currentAsset.name);
+            AssetManager::save_asset(newAsset, currentAsset.name);
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
         }
     }
@@ -107,7 +107,7 @@ namespace Storm
         // If no file, stop and display error
         if(fin.fail())
         {
-            showSimpleMessageBox("Error", "Could not find JSON asset descriptor at path: " + path, SDL_MESSAGEBOX_ERROR, Window::getInstance().getSDL());
+            show_simple_message_box("Error", "Could not find JSON asset descriptor at path: " + path, SDL_MESSAGEBOX_ERROR, Window::get_instance().get_SDL());
             return;
         }
 
@@ -129,7 +129,7 @@ namespace Storm
                 {
                     // Push the asset to the loading thread.
                     AssetToLoad newAsset;
-                    newAsset.type = getAssetTypeFromName(assetJSON["type"].get<std::string>());
+                    newAsset.type = get_asset_type_from_name(assetJSON["type"].get<std::string>());
                     newAsset.name = assetJSON["name"].get<std::string>();
                     newAsset.path = pathWithoutFilename + assetJSON["path"].get<std::string>();
                     newAsset.args = (void*)new json(assetJSON["data"]);
@@ -139,7 +139,7 @@ namespace Storm
                 }
             }
             else
-                showSimpleMessageBox("Error", "Invalid asset reading at JSON descriptor from path: " + path, SDL_MESSAGEBOX_ERROR, Window::getInstance().getSDL());
+                show_simple_message_box("Error", "Invalid asset reading at JSON descriptor from path: " + path, SDL_MESSAGEBOX_ERROR, Window::get_instance().get_SDL());
         }
     }
     

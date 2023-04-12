@@ -54,7 +54,7 @@ namespace Storm
 
                 // Window events
                 case SDL_WINDOWEVENT:
-                    Window::onEvent(_ev);
+                    Window::on_event(_ev);
                     break;
 
                 // Key events

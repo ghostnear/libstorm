@@ -19,7 +19,7 @@ namespace Storm
         virtual void draw() = 0;
         virtual void update(double dt) = 0;
 
-        void assignGameManager(GameManager* gm);
+        void assign_game_manager(GameManager* gm);
 
     protected:
         Node* root = new Node();
@@ -33,12 +33,12 @@ namespace Storm
         static void draw();
         static void delay();
         static void update();
-        static GameManager& getInstance();
-        static double getDeltaTime();
-        static void pushState(State* newState);
-        static void popState();
-        static void limitFPS(int32_t newLimit);
-        static bool isRunning();
+        static GameManager& get_instance();
+        static double get_delta_time();
+        static void push_state(State* newState);
+        static void pop_state();
+        static void limit_FPS(int32_t newLimit);
+        static bool is_running();
 
     private:
         GameManager();

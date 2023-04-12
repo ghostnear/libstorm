@@ -3,20 +3,20 @@
 
 namespace Storm
 {
-    void showSimpleMessageBox(std::string title, std::string message, SDL_MessageBoxFlags type, SDL_Window* parent)
+    void show_simple_message_box(std::string title, std::string message, SDL_MessageBoxFlags type, SDL_Window* parent)
     {
         // Try to show the message box using SDL, if it is not possible, write to output.
         if(SDL_ShowSimpleMessageBox(type, title.c_str(), message.c_str(), parent) < 0)
             printf("%s!\n%s", title.c_str(), message.c_str());
     }
 
-    #define win Window::getInstance()
+    #define win Window::get_instance()
 
     Window::Window()
     {
         // Window flags
         // TODO: replace these with an actual config file
-        uint32_t flags = SDL_WINDOW_RESIZABLE | fullscreen_type;
+        uint32_t flags = SDL_WINDOW_RESIZABLE | fullscreenType;
 
         // Create the SDL window
         window = SDL_CreateWindow(
@@ -25,64 +25,64 @@ namespace Storm
             size.x, size.y,
             flags);
         if(window == nullptr)
-            isquit = true;
+            isQuit = true;
     }
 
-    Window& Window::getInstance()
+    Window& Window::get_instance()
     {
         // This is instantiated on first use and guaranteed to be the only one
         static Window instance;
         return instance;
     }
 
-    SDL_Window* Window::getSDL()
+    SDL_Window* Window::get_SDL()
     {
         return win.window;
     }
 
-    std::string Window::getName()
+    std::string Window::get_name()
     {
         return win.title;
     }
 
-    bool Window::shouldClose()
+    bool Window::should_close()
     {
-        return win.isquit;
+        return win.isQuit;
     }
 
-    bool Window::isFullscreen()
+    bool Window::is_fullscreen()
     {
         return win.fullscreen;
     }
 
-    bool Window::isMinimized()
+    bool Window::is_minimized()
     {
         return win.minimized;
     }
 
-    Vec2<int> Window::getSize()
+    Vec2<int> Window::get_size()
     {
         return win.size;
     }
 
-    void Window::updateSize()
+    void Window::update_size()
     {
-        SDL_GetWindowSize(getSDL(), &win.size.x, &win.size.y);
+        SDL_GetWindowSize(get_SDL(), &win.size.x, &win.size.y);
     }
 
-    void Window::onEvent(SDL_Event* ev)
+    void Window::on_event(SDL_Event* ev)
     {
         switch(ev->window.event)
         {
             // If size changed for any reason, resize and repaint
             case SDL_WINDOWEVENT_SIZE_CHANGED:
-                Window::updateSize();
+                Window::update_size();
                 Graphics::update();
                 break;
 
             // Repaint on exposure
             case SDL_WINDOWEVENT_EXPOSED:
-                Window::updateSize();
+                Window::update_size();
                 Graphics::update();
                 break;
 
@@ -94,38 +94,38 @@ namespace Storm
                 win.minimized = false;
                 break;
             case SDL_WINDOWEVENT_RESTORED:
-                Window::updateSize();
+                Window::update_size();
                 win.minimized = false;
                 break;
         }
     }
 
-    void Window::setName(std::string newName)
+    void Window::set_name(std::string newName)
     {
-        SDL_SetWindowTitle(getSDL(), newName.c_str());
+        SDL_SetWindowTitle(get_SDL(), newName.c_str());
         win.title = newName;
     }
 
-    void Window::setFullscreen(uint32_t flags)
+    void Window::set_fullscreen(uint32_t flags)
     {
-    #ifdef BUILD_TYPE_VITA
-        // TODO: Warning or log or something because only fullscreen is allowed
+    #ifdef VITA
+        return;
     #else
         // Save flags if valid
         if(flags == 0 || flags == SDL_WINDOW_FULLSCREEN || flags == SDL_WINDOW_FULLSCREEN_DESKTOP)
         {
-            win.fullscreen_type = flags;
+            win.fullscreenType = flags;
             win.fullscreen = !(flags == 0);
-            SDL_SetWindowFullscreen(getSDL(), flags);
-            Window::updateSize();
+            SDL_SetWindowFullscreen(get_SDL(), flags);
+            Window::update_size();
         }
     #endif
     }
 
     void Window::close()
     {
-        win.isquit = true;
-        SDL_DestroyWindow(getSDL());
+        win.isQuit = true;
+        SDL_DestroyWindow(get_SDL());
     }
 
     void Window::free()

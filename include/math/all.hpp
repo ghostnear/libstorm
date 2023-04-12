@@ -3,40 +3,40 @@
 
 namespace Storm
 {
-    template <typename T> 
+    template<typename TElem> 
     struct Vec2
     {
-        T x, y;
+        TElem x, y;
         
-        template <typename Y>
-        Vec2<T> multiplyByComponents(Vec2<Y> arg)
+        template<typename T>
+        Vec2<TElem> multiply_by_components(Vec2<T> arg)
         {
             // TODO: simplify
-            T aux_x = x * arg.x;
-            T aux_y = y * arg.y;
-            return Vec2<T>({
+            TElem aux_x = x * arg.x;
+            TElem aux_y = y * arg.y;
+            return Vec2<TElem>({
                 .x = aux_x,
                 .y = aux_y
             });
         }
     };
 
-    template <typename T>
+    template<typename TElem>
     struct Vec3
     {
-        T x, y, z;
+        TElem x, y, z;
     };
 
-    template <typename T>
+    template<typename TElem>
     struct Rect
     {
-        Vec2<T> position, size;
+        Vec2<TElem> position, size;
     };
 
-    template <typename T>
+    template<typename TElem>
     struct Transform2
     {
-        Vec2<T> position;
+        Vec2<TElem> position;
         double angle;
     };
 }

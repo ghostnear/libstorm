@@ -11,7 +11,7 @@ namespace Storm
         // Init SDL.
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
         {
-            showSimpleMessageBox(
+            show_simple_message_box(
                 "SDL2 error",
                 "An error occured while initialising SDL2:\n" + std::string(SDL_GetError())
             );
@@ -20,7 +20,7 @@ namespace Storm
 
         if(TTF_Init() < 0)
         {
-            showSimpleMessageBox(
+            show_simple_message_box(
                 "SDL2_ttf error",
                 "An error occured while initialising SDL2_ttf:\n" + std::string(TTF_GetError())
             );
@@ -30,7 +30,7 @@ namespace Storm
         int32_t img_flags = IMG_INIT_PNG;
         if(!(IMG_Init(img_flags) & img_flags))
         {
-            showSimpleMessageBox(
+            show_simple_message_box(
                 "SDL2_img error",
                 "An error occured while initialising SDL2_img:\n" + std::string(IMG_GetError())
             );
@@ -38,9 +38,9 @@ namespace Storm
         }
 
         // Check if window was created correctly.
-        if(Window::getSDL() == nullptr)
+        if(Window::get_SDL() == nullptr)
         {
-            showSimpleMessageBox(
+            show_simple_message_box(
                 "SDL2 error",
                 "An error occured while creating the SDL2 window:\n" + std::string(SDL_GetError())
             );
@@ -48,9 +48,9 @@ namespace Storm
         }
 
         // Check if renderer has been created correctly.
-        if(Graphics::getSDL() == nullptr)
+        if(Graphics::get_SDL() == nullptr)
         {
-            showSimpleMessageBox(
+            show_simple_message_box(
                 "SDL2 error",
                 "An error occured while initialising the graphics system:\n" + std::string(SDL_GetError())
             );
@@ -71,7 +71,7 @@ namespace Storm
         TTF_Quit();
         SDL_Quit();
 
-    #ifdef BUILD_TYPE_VITA
+    #ifdef VITA
         // Tell the kernel the process has been exited.
         sceKernelExitProcess(ret_val);
     #endif

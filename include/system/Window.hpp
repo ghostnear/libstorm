@@ -7,7 +7,7 @@ namespace Storm
 {
     class Graphics;
 
-    void showSimpleMessageBox(std::string title, std::string message, SDL_MessageBoxFlags type = SDL_MESSAGEBOX_ERROR, SDL_Window* parent = nullptr);
+    void show_simple_message_box(std::string title, std::string message, SDL_MessageBoxFlags type = SDL_MESSAGEBOX_ERROR, SDL_Window* parent = nullptr);
 
     // Window singleton as there is only one window ever
     // https://stackoverflow.com/questions/1008019/c-singleton-design-pattern
@@ -19,17 +19,17 @@ namespace Storm
             void operator=(Window const&)  = delete;
 
             // Window methods
-            static Window& getInstance();
-            static SDL_Window* getSDL();
-            static std::string getName();
-            static bool shouldClose();
-            static Vec2<int> getSize();
-            static bool isFullscreen();
-            static bool isMinimized();
-            static void updateSize();
-            static void onEvent(SDL_Event* ev);
-            static void setName(std::string newName);
-            static void setFullscreen(uint32_t flags);
+            static Window& get_instance();
+            static SDL_Window* get_SDL();
+            static std::string get_name();
+            static bool should_close();
+            static Vec2<int> get_size();
+            static bool is_fullscreen();
+            static bool is_minimized();
+            static void update_size();
+            static void on_event(SDL_Event* ev);
+            static void set_name(std::string newName);
+            static void set_fullscreen(uint32_t flags);
             static void close();
             static void free();
 
@@ -40,16 +40,16 @@ namespace Storm
             // Window properties
             SDL_Window* window = nullptr;
             std::string title = "<libstorm_window>";
-            bool isquit = false;
+            bool isQuit = false;
 
             // Different screen configs per build platform
-        #ifdef BUILD_TYPE_VITA
+        #ifdef VITA
             // 960 x 544 screen, fullscreen
             Vec2<int> size {
                 .x = 960,
                 .y = 544
             };
-            uint32_t fullscreen_type = SDL_WINDOW_FULLSCREEN;
+            uint32_t fullscreenType = SDL_WINDOW_FULLSCREEN;
             bool fullscreen = true;
             bool minimized = false;
         #else
@@ -58,7 +58,7 @@ namespace Storm
                 .x = 960,
                 .y = 540
             };
-            uint32_t fullscreen_type = 0;
+            uint32_t fullscreenType = 0;
             bool minimized = false;
             bool fullscreen = false;
         #endif

@@ -20,7 +20,7 @@ namespace Storm
         Unknown = 0,
         Font
     };
-    AssetType getAssetTypeFromName(std::string name);
+    AssetType get_asset_type_from_name(std::string name);
 
     struct AssetToLoad
     {
@@ -80,7 +80,7 @@ namespace Storm
         std::map<size_t, TTF_Font*> _f;
     };
 
-    #define assets AssetManager::getInstance()._assetMap
+    #define assets AssetManager::get_instance()._assetMap
 
     class AssetManager
     {
@@ -90,16 +90,16 @@ namespace Storm
             void operator=(AssetManager const&) = delete;
 
             // Methods
-            static AssetManager& getInstance()
+            static AssetManager& get_instance()
             {
                 static AssetManager instance;
                 return instance;
             }
-            static void saveAsset(Asset* assetPointer, std::string identifier)
+            static void save_asset(Asset* assetPointer, std::string identifier)
             {
                 assets[identifier] = assetPointer;
             }
-            template<typename T> static T* getAsset(std::string identifier)
+            template<typename T> static T* get_asset(std::string identifier)
             {
                 return (T*)assets[identifier];
             }
@@ -124,18 +124,18 @@ namespace Storm
             // Methods
             static void start();
             static void finish();
-            static AssetLoader& getInstance();
+            static AssetLoader& get_instance();
             static void reset();
-            static double getPercentage();
-            static size_t getCount();
-            static size_t getMaxCount();
+            static double get_percentage();
+            static size_t get_count();
+            static size_t get_max_count();
 
             // Loads a JSON descriptor, adding the assets to the queue.
             // The queue gets loaded on a separate thread.
             static void load(std::string path);
 
         private:
-            static void doAssetLoading();
+            static void load_assets();
 
             // Constructor should be private
             AssetLoader() {}

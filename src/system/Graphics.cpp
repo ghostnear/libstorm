@@ -3,7 +3,7 @@
 
 namespace Storm
 {
-    #define gfx Graphics::getInstance()
+    #define gfx Graphics::get_instance()
 
     Graphics::Graphics()
     {
@@ -12,53 +12,53 @@ namespace Storm
         uint32_t flags = SDL_RENDERER_ACCELERATED;
 
         // SDL renderer
-        _r = SDL_CreateRenderer(Window::getSDL(), -1, flags);
+        _r = SDL_CreateRenderer(Window::get_SDL(), -1, flags);
         if(_r == nullptr)
             Window::close();
     }
 
-    SDL_Renderer* Graphics::getSDL()
+    SDL_Renderer* Graphics::get_SDL()
     {
-        return Graphics::getInstance()._r;
+        return Graphics::get_instance()._r;
     }
 
-    Graphics& Graphics::getInstance()
+    Graphics& Graphics::get_instance()
     {
         // This is instantiated on first use and guaranteed to be the only one
         static Graphics instance;
         return instance;
     }
 
-    void Graphics::setColor(SDL_Color c)
+    void Graphics::set_color(SDL_Color c)
     {
-        SDL_SetRenderDrawColor(getSDL(), c.r, c.g, c.b, c.a);
+        SDL_SetRenderDrawColor(get_SDL(), c.r, c.g, c.b, c.a);
     }
 
-    void Graphics::setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+    void Graphics::set_color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
     {
-        SDL_SetRenderDrawColor(getSDL(), r, g, b, a);
+        SDL_SetRenderDrawColor(get_SDL(), r, g, b, a);
     }
 
     void Graphics::clear()
     {
-        SDL_RenderClear(getSDL());
+        SDL_RenderClear(get_SDL());
     }
 
     void Graphics::clear(SDL_Color c)
     {
-        setColor(c);
+        set_color(c);
         clear();
     }
 
     void Graphics::clear(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
     {
-        setColor(r, g, b, a);
+        set_color(r, g, b, a);
         clear();
     }
 
     void Graphics::update()
     {
-        SDL_RenderPresent(getSDL());
+        SDL_RenderPresent(get_SDL());
     }
 
     void Graphics::free()
