@@ -6,6 +6,7 @@ file(
     "src/*.cpp"
     "src/system/*.cpp"
     "src/prefabs/*.cpp"
+    "src/system/assetTypes/*.cpp"
 )
 
 # Add all .cpp files from src

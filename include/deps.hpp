@@ -35,11 +35,11 @@ namespace Utils
 
     // Intersects 2 rects and returns the resulting intersection.
     // If the result is nullptr then that means the rects don't intersect
-    SDL_Rect* intersectRects(SDL_Rect* a, SDL_Rect* b);
+    SDL_Rect* intersect_rects(SDL_Rect* a, SDL_Rect* b);
 
     // Removes the file name from the path
     // ex: ./assets/lists.json becomes ./assets/
-    std::string removeFileNameFromPath(std::string path);
+    std::string remove_file_name_from_path(std::string path);
 };
 
 #endif

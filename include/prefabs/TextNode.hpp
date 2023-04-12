@@ -2,6 +2,7 @@
 #define LIBSTORM_PREFABS_TEXT_HPP
 
 #include "system/all.hpp"
+#include "system/assetTypes/all.hpp"
 
 namespace Storm::Prefabs
 {

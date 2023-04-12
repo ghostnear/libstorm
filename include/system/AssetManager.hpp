@@ -18,7 +18,8 @@ namespace Storm
     enum AssetType
     {
         Unknown = 0,
-        Font
+        Font,
+        Image
     };
     AssetType get_asset_type_from_name(std::string name);
 
@@ -35,49 +36,6 @@ namespace Storm
     {
     public:
         virtual void load(AssetToLoad metadata) = 0;
-    };
-
-    class FontAsset : public Asset
-    {
-    public:
-        void load(AssetToLoad metadata) override;
-
-        // Gets the font for a specific size.
-        TTF_Font* get(size_t size)
-        {
-            // If it exists, perfect
-            if(_f[size])
-                return _f[size];
-
-            // Load the font from the path
-            _f[size] = TTF_OpenFont(_path.c_str(), size);
-
-            // TODO: log an error if something happened
-            // if(!_f[size])
-
-            return _f[size];
-        }
-
-        // Frees all sizes.
-        void freeAll()
-        {
-            for(auto x : _f)
-                free(x.first);
-        }
-
-        // Frees one size.
-        void free(size_t size)
-        {
-            // Don't delete an inexistent font.
-            if(!_f[size])
-                return;
-
-            TTF_CloseFont(_f[size]);
-            _f[size] = nullptr;
-        }
-    private:
-        std::string _path;
-        std::map<size_t, TTF_Font*> _f;
     };
 
     #define assets AssetManager::get_instance()._assetMap

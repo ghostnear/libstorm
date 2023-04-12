@@ -1,4 +1,5 @@
 #include "system/AssetManager.hpp"
+#include "system/assetTypes/all.hpp"
 
 namespace Storm
 {
@@ -6,23 +7,9 @@ namespace Storm
     {
         if(name == "font")
             return AssetType::Font;
+        if(name == "sprite")
+            return AssetType::Image;
         return AssetType::Unknown;
-    }
-
-    void FontAsset::load(AssetToLoad metadata)
-    {
-        _path = metadata.path;
-        if(metadata.args)
-        {
-            json* args = (json*)metadata.args;
-            
-            // No sizes are loaded yet so getting should load them on the fly.
-            if((*args)["sizes"].is_array())
-                for(auto x : (*args)["sizes"])
-                    get(x);
-                
-            delete args;
-        }
     }
 
     #define theLoader AssetLoader::get_instance()
@@ -89,6 +76,10 @@ namespace Storm
                 case AssetType::Font:
                     newAsset = new FontAsset();
                     break;
+
+                case AssetType::Image:
+                    newAsset = new ImageAsset();
+                    break;
                     
                 default:
                     // Ignore
@@ -113,7 +104,7 @@ namespace Storm
 
         // Load JSON
         json data = json::parse(fin);
-        std::string pathWithoutFilename = Utils::removeFileNameFromPath(path);
+        std::string pathWithoutFilename = Utils::remove_file_name_from_path(path);
         for(auto assetJSON : data)
         {
             if(!assetJSON.is_null())
