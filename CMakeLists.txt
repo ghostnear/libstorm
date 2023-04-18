@@ -1,4 +1,26 @@
-cmake_minimum_required(VERSION 3.9)
+# Minimum PSVita required version.
+cmake_minimum_required(VERSION 2.8)
+
+# Make sure the target is set as a define.
+add_compile_definitions(${BUILD_TARGET})
+
+# PSvita specifics
+if(BUILD_TARGET MATCHES "VITA")
+
+    # VitaSDK is required
+    if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+        if(DEFINED ENV{VITASDK})
+            set(CMAKE_TOOLCHAIN_FILE "$ENV{VITASDK}/share/vita.toolchain.cmake" CACHE PATH "toolchain file")
+        else()
+            message(FATAL_ERROR "Please define VITASDK to point to your SDK path!")
+        endif()
+    endif()
+
+    include("$ENV{VITASDK}/share/vita.cmake" REQUIRED)
+
+endif()
+
+project(libStorm)
 
 file(
     GLOB
@@ -6,22 +28,33 @@ file(
     "src/*.cpp"
     "src/system/*.cpp"
     "src/prefabs/*.cpp"
-    "src/system/assetTypes/*.cpp"
+    "src/system/AssetTypes/*.cpp"
 )
 
 # Add all .cpp files from src
 add_library(
-    libStorm
+    ${PROJECT_NAME}
     STATIC
-    ${EXECUTABLE_FILES}
+        ${EXECUTABLE_FILES}
 )
 
 # Library properties
-set_target_properties(libStorm PROPERTIES OUTPUT_NAME storm)
+set_target_properties(
+    ${PROJECT_NAME}
+    PROPERTIES
+        OUTPUT_NAME storm
+)
+
+target_compile_options(
+    ${PROJECT_NAME}
+    PUBLIC
+        -Wall
+        -std=c++17
+)
 
 # Private directories for "*.h" includes and public directories for <libstorm/*.h> includes
 target_include_directories(
-    libStorm
+    ${PROJECT_NAME}
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/libstorm>
         $<INSTALL_INTERFACE:include/libstorm
@@ -33,11 +66,14 @@ target_include_directories(
 # PSVita specifics
 if(BUILD_TARGET MATCHES "VITA")
     target_link_libraries(
-        libStorm
+        ${PROJECT_NAME}
         PUBLIC
+            # SDL libraries.
             SDL2
             SDL2_ttf
             SDL2_image
+
+            # Stubs required by SDL.
             SceDisplay_stub
             SceCtrl_stub
             SceAudio_stub
@@ -49,34 +85,19 @@ if(BUILD_TARGET MATCHES "VITA")
             SceTouch_stub
             SceHid_stub
             SceMotion_stub
-            jpeg
-            png
-            webp
+            jpeg png webp
             pthread
             freetype
-            z
-            m
-    )
-elseif(BUILD_TARGET MATCHES "WIN")
-    find_package(SDL2 CONFIG REQUIRED)
-    find_package(SDL2-image CONFIG REQUIRED)
-    find_package(SDL2_ttf CONFIG REQUIRED)
-
-    target_link_libraries(
-        libStorm
-        PUBLIC
-            SDL2::SDL2
-            SDL2::SDL2main
-            SDL2::SDL2_image
-            SDL2_ttf::SDL2_ttf
+            z m
     )
 else()
+    # Use your favourite method to find SDL, then use it.
     find_package(SDL2 CONFIG REQUIRED)
     find_package(SDL2_image CONFIG REQUIRED)
     find_package(SDL2_ttf CONFIG REQUIRED)
 
     target_link_libraries(
-        libStorm
+        ${PROJECT_NAME}
         PUBLIC
             SDL2
             SDL2main

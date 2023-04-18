@@ -99,10 +99,10 @@ namespace Storm
             AssetLoader() {}
 
             // Asset thread
-            std::thread* _t = nullptr;
+            std::thread* _thread = nullptr;
 
             // Queues for all asset args
-            std::queue<AssetToLoad> _q;
+            std::queue<AssetToLoad> _assetQueue;
 
             // Queue infos
             size_t _maxCount = 0;

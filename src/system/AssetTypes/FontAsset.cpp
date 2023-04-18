@@ -1,4 +1,4 @@
-#include "system/assetTypes/FontAsset.hpp"
+#include "system/AssetTypes/FontAsset.hpp"
 
 void FontAsset::load(AssetToLoad metadata)
 {

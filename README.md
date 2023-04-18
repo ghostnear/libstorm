@@ -1,9 +1,9 @@
 # Libstorm
-Simple C++ framework aimed for my ease of use. I made it open-source so anyone else that wants to use it can.
+Simple C++ framework aimed for my own ease of use. I made it open-source so anyone else that wants to use it can.
 
 ## How to use
 
-Add the directory of the lib to your CMake project and include it using add_subdirectory.
+- Add the directory of the lib to your CMake project and include it using add_subdirectory.
 
 ## Requirements
 

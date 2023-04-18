@@ -34,7 +34,7 @@ namespace Storm
         gm._now = SDL_GetPerformanceCounter();
         gm._dt = (double)((gm._now - gm._last) / (double)SDL_GetPerformanceFrequency());
 
-        // If no FPS cap just update
+        // If no FPS cap just update, don't care what happens.
         if(gm._fpsLimit < 1)
             for(auto i : gm._states)
                 i->update(gm._dt);
@@ -45,12 +45,13 @@ namespace Storm
             while(gm._acc >= 1.0 / gm._fpsLimit)
             {
                 gm._dt = 1.0 / gm._fpsLimit;
-                for(auto i : gm._states)
-                    i->update(gm._dt);
+                for(auto state : gm._states)
+                    state->update(gm._dt);
                 gm._acc -= 1.0 / gm._fpsLimit;
             }
+
             // Sleep till next frame
-            std::this_thread::sleep_for(std::chrono::milliseconds((int)(1000 * (1.0 / gm._fpsLimit - gm._acc))));
+            std::this_thread::sleep_for(std::chrono::milliseconds((int)(1 * (1.0 / gm._fpsLimit - gm._acc))));
         }
     }
 

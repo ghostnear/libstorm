@@ -1,5 +1,5 @@
 #include "system/AssetManager.hpp"
-#include "system/assetTypes/all.hpp"
+#include "system/AssetTypes/all.hpp"
 
 namespace Storm
 {
@@ -17,19 +17,19 @@ namespace Storm
     void AssetLoader::start()
     {
         // Can't start an already started thread
-        if(theLoader._t != nullptr)
+        if(theLoader._thread != nullptr)
             return;
-        theLoader._t = new std::thread(AssetLoader::load_assets);
+        theLoader._thread = new std::thread(AssetLoader::load_assets);
     }
 
     void AssetLoader::finish()
     {
         // Can't join an unstarted thread
-        if(theLoader._t == nullptr)
+        if(theLoader._thread == nullptr)
             return;
-        theLoader._t->join();
-        delete theLoader._t;
-        theLoader._t = nullptr;
+        theLoader._thread->join();
+        delete theLoader._thread;
+        theLoader._thread = nullptr;
     }
 
     AssetLoader& AssetLoader::get_instance()
@@ -52,7 +52,7 @@ namespace Storm
 
     size_t AssetLoader::get_count()
     {
-        return theLoader._q.size();
+        return theLoader._assetQueue.size();
     }
 
     size_t AssetLoader::get_max_count()
@@ -64,10 +64,10 @@ namespace Storm
     {
         // Do the loading while the queue is not empty, do it at a rate of max 1000 assets per sec
         // (should be way more than enough) until I find a way to deal with this (TODO btw)
-        while(!theLoader._q.empty() && !Window::should_close())
+        while(!theLoader._assetQueue.empty() && !Window::should_close())
         {
-            AssetToLoad currentAsset = theLoader._q.front();
-            theLoader._q.pop();
+            AssetToLoad currentAsset = theLoader._assetQueue.front();
+            theLoader._assetQueue.pop();
 
             // Load the asset based on type
             Asset* newAsset;
@@ -125,7 +125,7 @@ namespace Storm
                     newAsset.path = pathWithoutFilename + assetJSON["path"].get<std::string>();
                     newAsset.args = (void*)new json(assetJSON["data"]);
                     // ! Make sure to delete this in the loading thread for the asset type !
-                    theLoader._q.push(newAsset);
+                    theLoader._assetQueue.push(newAsset);
                     theLoader._maxCount += 1;
                 }
             }
