@@ -7,6 +7,7 @@ namespace Storm::Prefabs
         auto font = slf->get_component<FontAsset>("text_font")->get(*(slf->get_component<size_t>("text_size")));
         auto texturePtr = slf->get_component<SDL_Texture>("text_texture");
         auto textColor = *(slf->get_component<SDL_Color>("text_color"));
+        
         // Invalid pointer, create texture
         if(texturePtr == nullptr)
         {
@@ -47,7 +48,8 @@ namespace Storm::Prefabs
         auto textOffset = slf->get_component<Vec2<double>>("text_offset");
         auto textureToDraw = slf->get_component<SDL_Texture>("text_texture");
         // TODO: stop using the stack here
-        SDL_Rect result_rect = {
+        static SDL_Rect result_rect; 
+        result_rect = {
             .x = int(boundaries->position.x),
             .y = int(boundaries->position.y),
             .w = int(boundaries->size.x),

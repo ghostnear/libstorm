@@ -11,7 +11,7 @@ namespace Storm
         // Init SDL.
         if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
         {
-            show_simple_message_box(
+            Window::show_simple_message_box(
                 "SDL2 error",
                 "An error occured while initialising SDL2:\n" + std::string(SDL_GetError())
             );
@@ -20,7 +20,7 @@ namespace Storm
 
         if(TTF_Init() < 0)
         {
-            show_simple_message_box(
+            Window::show_simple_message_box(
                 "SDL2_ttf error",
                 "An error occured while initialising SDL2_ttf:\n" + std::string(TTF_GetError())
             );
@@ -30,7 +30,7 @@ namespace Storm
         int32_t img_flags = IMG_INIT_PNG;
         if(!(IMG_Init(img_flags) & img_flags))
         {
-            show_simple_message_box(
+            Window::show_simple_message_box(
                 "SDL2_img error",
                 "An error occured while initialising SDL2_img:\n" + std::string(IMG_GetError())
             );
@@ -40,7 +40,7 @@ namespace Storm
         // Check if window was created correctly.
         if(Window::get_SDL() == nullptr)
         {
-            show_simple_message_box(
+            Window::show_simple_message_box(
                 "SDL2 error",
                 "An error occured while creating the SDL2 window:\n" + std::string(SDL_GetError())
             );
@@ -50,7 +50,7 @@ namespace Storm
         // Check if renderer has been created correctly.
         if(Graphics::get_SDL() == nullptr)
         {
-            show_simple_message_box(
+            Window::show_simple_message_box(
                 "SDL2 error",
                 "An error occured while initialising the graphics system:\n" + std::string(SDL_GetError())
             );

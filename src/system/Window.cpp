@@ -3,14 +3,14 @@
 
 namespace Storm
 {
-    void show_simple_message_box(std::string title, std::string message, SDL_MessageBoxFlags type, SDL_Window* parent)
+    #define win Window::get_instance()
+
+    void Window::show_simple_message_box(std::string title, std::string message, SDL_MessageBoxFlags type)
     {
         // Try to show the message box using SDL, if it is not possible, write to output.
-        if(SDL_ShowSimpleMessageBox(type, title.c_str(), message.c_str(), parent) < 0)
+        if(SDL_ShowSimpleMessageBox(type, title.c_str(), message.c_str(), win.get_SDL()) < 0)
             printf("%s!\n%s", title.c_str(), message.c_str());
     }
-
-    #define win Window::get_instance()
 
     Window::Window()
     {
@@ -74,6 +74,7 @@ namespace Storm
     {
         switch(ev->window.event)
         {
+#ifndef VITA
             // If size changed for any reason, resize and repaint
             case SDL_WINDOWEVENT_SIZE_CHANGED:
                 Window::update_size();
@@ -97,6 +98,7 @@ namespace Storm
                 Window::update_size();
                 win.minimized = false;
                 break;
+#endif
         }
     }
 
@@ -108,9 +110,7 @@ namespace Storm
 
     void Window::set_fullscreen(uint32_t flags)
     {
-    #ifdef VITA
-        return;
-    #else
+    #ifndef VITA
         // Save flags if valid
         if(flags == 0 || flags == SDL_WINDOW_FULLSCREEN || flags == SDL_WINDOW_FULLSCREEN_DESKTOP)
         {

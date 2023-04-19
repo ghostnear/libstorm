@@ -102,7 +102,7 @@ namespace Storm
         // If no file, stop and display error
         if(fin.fail())
         {
-            show_simple_message_box("Error", "Could not find JSON asset descriptor at path: " + path, SDL_MESSAGEBOX_ERROR, Window::get_instance().get_SDL());
+            Window::show_simple_message_box("Error", "Could not find JSON asset descriptor at path: " + path + "\n", SDL_MESSAGEBOX_ERROR);
             return;
         }
 
@@ -134,7 +134,7 @@ namespace Storm
                 }
             }
             else
-                show_simple_message_box("Error", "Invalid asset reading at JSON descriptor from path: " + path, SDL_MESSAGEBOX_ERROR, Window::get_instance().get_SDL());
+                Window::show_simple_message_box("Error", "Invalid asset reading at JSON descriptor from path: " + path, SDL_MESSAGEBOX_ERROR);
         }
     }
     
