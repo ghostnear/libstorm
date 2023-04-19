@@ -1,5 +1,6 @@
 #include "system/AssetManager.hpp"
 #include "system/AssetTypes/all.hpp"
+#include <cstddef>
 
 namespace Storm
 {
@@ -62,15 +63,14 @@ namespace Storm
 
     void AssetLoader::load_assets()
     {
-        // Do the loading while the queue is not empty, do it at a rate of max 1000 assets per sec
-        // (should be way more than enough) until I find a way to deal with this (TODO btw)
+        // Do the loading while the queue is not empty, at maximum processing speed.
         while(!theLoader._assetQueue.empty() && !Window::should_close())
         {
             AssetToLoad currentAsset = theLoader._assetQueue.front();
             theLoader._assetQueue.pop();
 
             // Load the asset based on type
-            Asset* newAsset;
+            Asset* newAsset = nullptr;
             switch(currentAsset.type)
             {
                 case AssetType::Font:
@@ -85,9 +85,13 @@ namespace Storm
                     // Ignore
                     break;
             }
-            newAsset->load(currentAsset);
-            AssetManager::save_asset(newAsset, currentAsset.name);
-            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+            // Don't explode if the asset is invalid.
+            if(newAsset != nullptr)
+            {
+                newAsset->load(currentAsset);
+                AssetManager::save_asset(newAsset, currentAsset.name);
+            }
         }
     }
 
