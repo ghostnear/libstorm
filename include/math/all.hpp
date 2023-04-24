@@ -1,6 +1,8 @@
 #ifndef LIBSTORM_MATH_ALL
 #define LIBSTORM_MATH_ALL
 
+#include <SDL2/SDL.h>
+
 namespace Storm
 {
     template<typename TElem> 
@@ -31,6 +33,16 @@ namespace Storm
     struct Rect
     {
         Vec2<TElem> position, size;
+
+        SDL_Rect to_SDL()
+        {
+            SDL_Rect result;
+            result.x = position.x;
+            result.y = position.y;
+            result.w = size.x;
+            result.h = size.y;
+            return result;
+        }
     };
 
     template<typename TElem>

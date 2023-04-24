@@ -8,7 +8,7 @@ namespace Storm
     {
         if(name == "font")
             return AssetType::Font;
-        if(name == "sprite")
+        if(name == "image")
             return AssetType::Image;
         return AssetType::Unknown;
     }
@@ -128,6 +128,7 @@ namespace Storm
                     newAsset.name = assetJSON["name"].get<std::string>();
                     newAsset.path = pathWithoutFilename + assetJSON["path"].get<std::string>();
                     newAsset.args = (void*)new json(assetJSON["data"]);
+                    
                     // ! Make sure to delete this in the loading thread for the asset type !
                     theLoader._assetQueue.push(newAsset);
                     theLoader._maxCount += 1;

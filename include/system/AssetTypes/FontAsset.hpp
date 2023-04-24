@@ -7,7 +7,13 @@ using namespace Storm;
 
 class FontAsset : public Asset
 {
+private:
+    std::string _path;
+    std::map<size_t, TTF_Font*> _f;
+
 public:
+    ~FontAsset();
+
     void load(AssetToLoad metadata) override;
 
     // Gets the font for a specific size.
@@ -18,10 +24,6 @@ public:
 
     // Frees one size.
     void free(size_t size);
-
-private:
-    std::string _path;
-    std::map<size_t, TTF_Font*> _f;
 };
 
 #endif

@@ -16,6 +16,11 @@ void FontAsset::load(AssetToLoad metadata)
     }
 }
 
+FontAsset::~FontAsset()
+{
+    freeAll();
+}
+
 TTF_Font* FontAsset::get(size_t size)
 {
     // If it exists, perfect
