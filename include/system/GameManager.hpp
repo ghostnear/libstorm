@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_GAME_MANAGER_HPP
-#define LIBSTORM_GAME_MANAGER_HPP
+#pragma once
 
 #include "deps.hpp"
 #include "system/Node.hpp"
@@ -51,5 +50,3 @@ namespace Storm
         uint64_t _now = 0, _last = 0;
     };
 };
-
-#endif

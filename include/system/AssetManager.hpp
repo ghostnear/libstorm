@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_ASSET_MANAGER_HPP
-#define LIBSTORM_ASSET_MANAGER_HPP
+#pragma once
 
 #include "deps.hpp"
 #include "Window.hpp"
@@ -108,5 +107,3 @@ namespace Storm
             size_t _maxCount = 0;
     };
 };
-
-#endif

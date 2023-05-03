@@ -1,7 +1,4 @@
-#ifndef LIBSTORM_ASSET_TYPES_ALL_HPP
-#define LIBSTORM_ASSET_TYPES_ALL_HPP
+#pragma once
 
 #include "FontAsset.hpp"
 #include "ImageAsset.hpp"
-
-#endif

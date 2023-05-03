@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_WINDOW_HPP
-#define LIBSTORM_WINDOW_HPP
+#pragma once
 
 #include "deps.hpp"
 
@@ -68,5 +67,3 @@ namespace Storm
             static void free();
     };
 }
-
-#endif

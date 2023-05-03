@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_GRAPHICS_HPP
-#define LIBSTORM_GRAPHICS_HPP
+#pragma once
 
 #include "deps.hpp"
 
@@ -37,5 +36,3 @@ namespace Storm
             static void toggle_vsync();
     };
 }
-
-#endif

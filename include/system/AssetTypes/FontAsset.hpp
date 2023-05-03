@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_ASSETS_FONT_HPP
-#define LIBSTORM_ASSETS_FONT_HPP
+#pragma once
 
 #include "../AssetManager.hpp"
 
@@ -25,5 +24,3 @@ public:
     // Frees one size.
     void free(size_t size);
 };
-
-#endif

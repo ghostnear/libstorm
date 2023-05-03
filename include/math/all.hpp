@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_MATH_ALL
-#define LIBSTORM_MATH_ALL
+#pragma once
 
 #include <SDL2/SDL.h>
 
@@ -52,5 +51,3 @@ namespace Storm
         double angle;
     };
 }
-
-#endif

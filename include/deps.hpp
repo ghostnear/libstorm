@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_DEPS_HPP
-#define LIBSTORM_DEPS_HPP
+#pragma once
 
 // Dependencies required everywhere
 #include <cstdio>
@@ -41,5 +40,3 @@ namespace Utils
     // ex: ./assets/lists.json becomes ./assets/
     std::string remove_file_name_from_path(std::string path);
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_SYSTEM_ALL_HPP
-#define LIBSTORM_SYSTEM_ALL_HPP
+#pragma once
 
 #include "Node.hpp"
 #include "Input.hpp"
@@ -8,4 +7,3 @@
 #include "GameManager.hpp"
 #include "AssetManager.hpp"
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_NODE_HPP
-#define LIBSTORM_NODE_HPP
+#pragma once
 
 #include "deps.hpp"
 #include <map>
@@ -98,5 +97,3 @@ namespace Storm
         }
     };
 }
-
-#endif

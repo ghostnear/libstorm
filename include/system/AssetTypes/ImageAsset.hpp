@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_ASSETS_IMAGE_HPP
-#define LIBSTORM_ASSETS_IMAGE_HPP
+#pragma once
 
 #include "../AssetManager.hpp"
 #include <SDL2/SDL_render.h>
@@ -18,5 +17,3 @@ public:
 
     void load(AssetToLoad metadata) override;
 };
-
-#endif

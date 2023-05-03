@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_HPP
-#define LIBSTORM_HPP
+#pragma once
 
 #include "deps.hpp"
 #include "math/all.hpp"
@@ -12,4 +11,3 @@ namespace Storm
     int32_t StormQuit(int32_t ret_val);
 }
 
-#endif

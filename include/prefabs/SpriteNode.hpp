@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_PREFABS_SPRITE_HPP
-#define LIBSTORM_PREFABS_SPRITE_HPP
+#pragma once
 
 #include "system/all.hpp"
 
@@ -16,5 +15,3 @@ namespace Storm::Prefabs
         SpriteNode(SpriteNodeConfig config);
     };
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_PREFABS_TEXT_HPP
-#define LIBSTORM_PREFABS_TEXT_HPP
+#pragma once
 
 #include "system/all.hpp"
 #include "system/AssetTypes/all.hpp"
@@ -44,4 +43,3 @@ namespace Storm::Prefabs
     };
 };
 
-#endif

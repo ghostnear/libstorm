@@ -1,5 +1,4 @@
-#ifndef LIBSTORM_INPUT_HPP
-#define LIBSTORM_INPUT_HPP
+#pragma once
 
 #include "deps.hpp"
 #include "Window.hpp"
@@ -36,5 +35,3 @@ namespace Storm
             std::map<SDL_Keycode, bool> _lastState;
     };
 }
-
-#endif
