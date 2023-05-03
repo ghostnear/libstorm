@@ -1,5 +1,5 @@
 # Minimum PSVita required version.
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.12)
 
 # Make sure the target is set as a define.
 add_compile_definitions(${BUILD_TARGET})
