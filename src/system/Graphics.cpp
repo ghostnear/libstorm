@@ -1,5 +1,6 @@
 #include "system/Graphics.hpp"
 #include "system/Window.hpp"
+#include <SDL2/SDL_render.h>
 
 namespace Storm
 {
@@ -59,6 +60,12 @@ namespace Storm
     void Graphics::update()
     {
         SDL_RenderPresent(get_SDL());
+    }
+
+    void Graphics::toggle_vsync()
+    {
+        gfx.vsync = !gfx.vsync;
+        SDL_RenderSetVSync(gfx._r, gfx.vsync);
     }
 
     void Graphics::free()

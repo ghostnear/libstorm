@@ -11,6 +11,14 @@ namespace Storm
     // https://stackoverflow.com/questions/1008019/c-singleton-design-pattern
     class Graphics
     {
+        private:
+            // Constructor should be private
+            Graphics();
+
+            // Properties
+            SDL_Renderer* _r = nullptr;
+            bool vsync = false;
+
         public:
             // Do not allow for multiple instances
             Graphics(Graphics const&)       = delete;
@@ -26,13 +34,7 @@ namespace Storm
             static void clear(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255);
             static void update();
             static void free();
-
-        private:
-            // Constructor should be private
-            Graphics();
-
-            // Properties
-            SDL_Renderer* _r = nullptr;
+            static void toggle_vsync();
     };
 }
 
