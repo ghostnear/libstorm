@@ -8,8 +8,6 @@
 
 namespace Storm
 {
-    class GameManager;
-
     class State
     {
     public:
@@ -18,11 +16,8 @@ namespace Storm
         virtual void draw() = 0;
         virtual void update(double dt) = 0;
 
-        void assign_game_manager(GameManager* gm);
-
     protected:
         Node* root = new Node();
-        GameManager* _gm;
     };
 
     class GameManager

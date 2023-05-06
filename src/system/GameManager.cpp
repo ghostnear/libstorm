@@ -2,11 +2,6 @@
 
 namespace Storm
 {
-    void State::assign_game_manager(GameManager* gm)
-    {
-        _gm = gm;
-    }
-
     #define gm GameManager::get_instance()
 
     GameManager::GameManager()
@@ -69,7 +64,6 @@ namespace Storm
 
         // Add new state
         newState->on_init();
-        newState->assign_game_manager(&gm);
         gm._states.push_back(newState);
     }
 

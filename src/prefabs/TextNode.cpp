@@ -1,11 +1,12 @@
 #include "prefabs/TextNode.hpp"
+#include "system/Types/Texture.hpp"
 
 namespace Storm::Prefabs
 {
     void TextNode::redraw_text_node(Node* slf)
     {
         auto font = slf->get_component<FontAsset>("text_font")->get(*(slf->get_component<size_t>("text_size")));
-        auto texturePtr = slf->get_component<SDL_Texture>("text_texture");
+        auto texturePtr = slf->get_component<Texture>("text_texture");
         auto textColor = *(slf->get_component<SDL_Color>("text_color"));
 
         // No font selected, don't do anything.
@@ -21,21 +22,19 @@ namespace Storm::Prefabs
                     slf->get_component<std::string>("text")->c_str(),
                     textColor
                 );
-            texturePtr = SDL_CreateTextureFromSurface(
-                Graphics::get_SDL(),
-                renderedText
+            slf->set_component<Texture>(
+                "text_texture",
+                new Texture(SDL_CreateTextureFromSurface(
+                    Graphics::get_SDL(),
+                    renderedText
+                ))
             );
             SDL_FreeSurface(renderedText);
-            slf->add_component<SDL_Texture>(
-                "text_texture",
-                texturePtr
-            );
         }
         else
         {
             // Invalidate and force redraw
-            SDL_DestroyTexture(texturePtr);
-            slf->remove_component("text_texture");
+            slf->remove_component<Texture>("text_texture");
             TextNode::redraw_text_node(slf);
         }
     }
@@ -55,7 +54,7 @@ namespace Storm::Prefabs
         // Draw the text to the screen
         auto boundaries = slf->get_component<Rect<double>>("boundaries");
         auto textOffset = slf->get_component<Vec2<double>>("text_offset");
-        auto textureToDraw = slf->get_component<SDL_Texture>("text_texture");
+        auto textureToDraw = slf->get_component<Texture>("text_texture");
 
         static SDL_Rect result_rect; 
         result_rect = {
@@ -69,7 +68,7 @@ namespace Storm::Prefabs
         result_rect.y -= int(result_rect.h * textOffset->y);
         SDL_RenderCopy(
             Graphics::get_SDL(),
-            textureToDraw,
+            textureToDraw->get(),
             NULL,
             &result_rect
         );
@@ -77,35 +76,35 @@ namespace Storm::Prefabs
 
     TextNode::TextNode(TextNodeConfig config)
     {
-        add_component<Vec2<double>>(
+        set_component<Vec2<double>>(
             "text_offset",
             new Vec2<double>(config.textOffset)
         );
-        add_component<bool>(
+        set_component<bool>(
             "needs_redrawing",
             new bool(true)
         );
-        add_component<Rect<double>>(
+        set_component<Rect<double>>(
             "boundaries",
             new Rect<double>(config.boundaries)
         );
-        add_component<SDL_Texture>(
+        set_component<Texture>(
             "text_texture",
             nullptr
         );
-        add_component<SDL_Color>(
+        set_component<SDL_Color>(
             "text_color",
             new SDL_Color(config.color)
         );
-        add_component<size_t>(
+        set_component<size_t>(
             "text_size",
             new size_t(config.size)
         );
-        add_component<FontAsset>(
+        set_component<FontAsset>(
             "text_font",
             config.font
         );
-        add_component<std::string>(
+        set_component<std::string>(
             "text",
             new std::string(config.initialText)
         );

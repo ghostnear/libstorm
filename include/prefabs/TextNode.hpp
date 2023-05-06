@@ -1,6 +1,7 @@
 #pragma once
 
 #include "system/all.hpp"
+#include "system/Types/all.hpp"
 #include "system/AssetTypes/all.hpp"
 
 namespace Storm::Prefabs
