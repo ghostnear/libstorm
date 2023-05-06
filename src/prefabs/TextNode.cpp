@@ -7,6 +7,10 @@ namespace Storm::Prefabs
         auto font = slf->get_component<FontAsset>("text_font")->get(*(slf->get_component<size_t>("text_size")));
         auto texturePtr = slf->get_component<SDL_Texture>("text_texture");
         auto textColor = *(slf->get_component<SDL_Color>("text_color"));
+
+        // No font selected, don't do anything.
+        if(font == nullptr)
+            return;
         
         // Invalid pointer, create texture
         if(texturePtr == nullptr)
@@ -38,6 +42,11 @@ namespace Storm::Prefabs
 
     void TextNode::text_node_draw(Node* slf)
     {
+        // Make sure you have a font first.
+        auto fontAsset = slf->get_component<FontAsset>("text_font");
+        if(fontAsset == nullptr)
+            return;
+
         // Rebuild texture if needed (needs the flag set on each change)
         auto redraw_flag = slf->get_component<bool>("needs_redrawing");
         if(*redraw_flag)
@@ -47,7 +56,7 @@ namespace Storm::Prefabs
         auto boundaries = slf->get_component<Rect<double>>("boundaries");
         auto textOffset = slf->get_component<Vec2<double>>("text_offset");
         auto textureToDraw = slf->get_component<SDL_Texture>("text_texture");
-        // TODO: stop using the stack here
+
         static SDL_Rect result_rect; 
         result_rect = {
             .x = int(boundaries->position.x),
@@ -55,6 +64,7 @@ namespace Storm::Prefabs
             .w = int(boundaries->size.x),
             .h = int(boundaries->size.y)
         };
+
         result_rect.x -= int(result_rect.w * textOffset->x);
         result_rect.y -= int(result_rect.h * textOffset->y);
         SDL_RenderCopy(

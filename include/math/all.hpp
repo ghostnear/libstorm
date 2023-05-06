@@ -15,10 +15,10 @@ namespace Storm
             // TODO: simplify
             TElem aux_x = x * arg.x;
             TElem aux_y = y * arg.y;
-            return Vec2<TElem>({
+            return {
                 .x = aux_x,
                 .y = aux_y
-            });
+            };
         }
     };
 

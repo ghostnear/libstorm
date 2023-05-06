@@ -6,8 +6,6 @@ namespace Storm
 {
     class Graphics;
 
-    
-
     // Window singleton as there is only one window ever
     // https://stackoverflow.com/questions/1008019/c-singleton-design-pattern
     class Window
@@ -33,7 +31,7 @@ namespace Storm
             bool fullscreen = true;
             bool minimized = false;
         #else
-            // 960 x 540 screen, no fullscreen
+            // 960 x 540 screen, half of 1080p, no fullscreen
             Vec2<int> size {
                 .x = 960,
                 .y = 540
@@ -60,6 +58,7 @@ namespace Storm
             static bool is_fullscreen();
             static bool is_minimized();
             static void update_size();
+            static void set_size(Vec2<int> newSize);
             static void on_event(SDL_Event* ev);
             static void set_name(std::string newName);
             static void set_fullscreen(uint32_t flags);

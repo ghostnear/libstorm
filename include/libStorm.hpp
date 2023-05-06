@@ -9,5 +9,6 @@ namespace Storm
 {
     int32_t StormInit();
     int32_t StormQuit(int32_t ret_val);
-}
 
+    int32_t StormMainLoop();
+}

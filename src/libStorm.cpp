@@ -79,4 +79,25 @@ namespace Storm
         // Any return value that is not 0 is an error.
         return (ret_val == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
     }
+
+    int32_t StormMainLoop()
+    {
+        while(!Window::should_close() && GameManager::is_running())
+        {
+            // Poll events
+            Input::pollEvents();
+
+            // Update
+            GameManager::update();
+
+            // Draw
+            if(!Window::is_minimized())
+                GameManager::draw();
+            
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        }
+
+        // Quit and return the quit result
+        return StormQuit(EXIT_SUCCESS);
+    }
 }

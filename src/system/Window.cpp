@@ -16,7 +16,7 @@ namespace Storm
     {
         // Window flags
         // TODO: replace these with an actual config file
-        uint32_t flags = SDL_WINDOW_RESIZABLE | fullscreenType;
+        uint32_t flags =  fullscreenType;
 
         // Create the SDL window
         window = SDL_CreateWindow(
@@ -75,14 +75,9 @@ namespace Storm
         switch(ev->window.event)
         {
 #ifndef VITA
-            // If size changed for any reason, resize and repaint
-            case SDL_WINDOWEVENT_SIZE_CHANGED:
-                Window::update_size();
-                Graphics::update();
-                break;
-
-            // Repaint on exposure
+            // If window changed for any reason, resize and repaint
             case SDL_WINDOWEVENT_EXPOSED:
+            case SDL_WINDOWEVENT_SIZE_CHANGED:
                 Window::update_size();
                 Graphics::update();
                 break;
@@ -95,7 +90,7 @@ namespace Storm
                 win.minimized = false;
                 break;
             case SDL_WINDOWEVENT_RESTORED:
-                Window::update_size();
+                update_size();
                 win.minimized = false;
                 break;
 #endif
@@ -117,9 +112,15 @@ namespace Storm
             win.fullscreenType = flags;
             win.fullscreen = !(flags == 0);
             SDL_SetWindowFullscreen(get_SDL(), flags);
-            Window::update_size();
+            update_size();
         }
     #endif
+    }
+
+    void Window::set_size(Vec2<int> newSize)
+    {
+        SDL_SetWindowSize(get_SDL(), newSize.x, newSize.y);
+        update_size();
     }
 
     void Window::close()

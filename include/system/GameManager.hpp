@@ -30,7 +30,6 @@ namespace Storm
     public:
         // Methods
         static void draw();
-        static void delay();
         static void update();
         static GameManager& get_instance();
         static double get_delta_time();
