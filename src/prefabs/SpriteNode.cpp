@@ -5,6 +5,6 @@ namespace Storm::Prefabs
 {
     SpriteNode::SpriteNode(SpriteNodeConfig config)
     {
-
+        
     }
 }

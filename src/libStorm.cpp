@@ -60,7 +60,7 @@ namespace Storm
         return EXIT_SUCCESS;
     }
 
-    int32_t StormQuit(int32_t ret_val)
+    int32_t StormQuit(int32_t returnValue)
     {
         // Free everything memory related here.
         Graphics::free();
@@ -73,11 +73,11 @@ namespace Storm
 
     #ifdef VITA
         // Tell the kernel the process has been exited.
-        sceKernelExitProcess(ret_val);
+        sceKernelExitProcess(returnValue);
     #endif
 
         // Any return value that is not 0 is an error.
-        return (ret_val == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
+        return (returnValue == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
     }
 
     int32_t StormMainLoop()

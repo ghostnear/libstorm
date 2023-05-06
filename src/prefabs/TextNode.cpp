@@ -1,42 +1,46 @@
 #include "prefabs/TextNode.hpp"
 #include "system/Types/Texture.hpp"
+#include <SDL2/SDL_ttf.h>
 
 namespace Storm::Prefabs
 {
     void TextNode::redraw_text_node(Node* slf)
     {
         auto font = slf->get_component<FontAsset>("text_font")->get(*(slf->get_component<size_t>("text_size")));
-        auto texturePtr = slf->get_component<Texture>("text_texture");
-        auto textColor = *(slf->get_component<SDL_Color>("text_color"));
-
-        // No font selected, don't do anything.
         if(font == nullptr)
             return;
+
+        auto texturePtr = slf->get_component<Texture>("text_texture");
         
-        // Invalid pointer, create texture
         if(texturePtr == nullptr)
         {
             SDL_Surface* renderedText =
                 TTF_RenderText_Solid(
                     font,
                     slf->get_component<std::string>("text")->c_str(),
-                    textColor
+                    *(slf->get_component<SDL_Color>("text_color"))
                 );
-            slf->set_component<Texture>(
-                "text_texture",
-                new Texture(SDL_CreateTextureFromSurface(
-                    Graphics::get_SDL(),
-                    renderedText
-                ))
-            );
+
+            if(renderedText != nullptr)
+            {
+                slf->set_component<Texture>(
+                    "text_texture",
+                    new Texture(
+                        SDL_CreateTextureFromSurface(
+                            Graphics::get_SDL(),
+                            renderedText
+                        )
+                    )
+                );
+            }
+
             SDL_FreeSurface(renderedText);
+            return;
         }
-        else
-        {
-            // Invalidate and force redraw
-            slf->remove_component<Texture>("text_texture");
-            TextNode::redraw_text_node(slf);
-        }
+
+        // Invalidate and force redraw otherwise.
+        slf->remove_component<Texture>("text_texture");
+        TextNode::redraw_text_node(slf);
     }
 
     void TextNode::text_node_draw(Node* slf)
@@ -52,9 +56,12 @@ namespace Storm::Prefabs
             TextNode::redraw_text_node(slf), *redraw_flag = false;
 
         // Draw the text to the screen
+        auto textureToDraw = slf->get_component<Texture>("text_texture");
+        if(textureToDraw == nullptr)
+            return;
+        
         auto boundaries = slf->get_component<Rect<double>>("boundaries");
         auto textOffset = slf->get_component<Vec2<double>>("text_offset");
-        auto textureToDraw = slf->get_component<Texture>("text_texture");
 
         static SDL_Rect result_rect; 
         result_rect = {
@@ -66,12 +73,16 @@ namespace Storm::Prefabs
 
         result_rect.x -= int(result_rect.w * textOffset->x);
         result_rect.y -= int(result_rect.h * textOffset->y);
-        SDL_RenderCopy(
-            Graphics::get_SDL(),
-            textureToDraw->get(),
-            NULL,
-            &result_rect
-        );
+
+        if(textureToDraw->get() != nullptr)
+        {
+            SDL_RenderCopy(
+                Graphics::get_SDL(),
+                textureToDraw->get(),
+                NULL,
+                &result_rect
+            );
+        }
     }
 
     TextNode::TextNode(TextNodeConfig config)

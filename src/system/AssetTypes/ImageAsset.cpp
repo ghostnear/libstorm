@@ -25,7 +25,7 @@ void ImageAsset::load(AssetToLoad metadata)
         return;
     }
 
-    // Create texture data on the GPU and get rid of the surface as to not keep RAM busy..
+    // Create texture data on the GPU and get rid of the surface as to not keep RAM busy.
     textureData = SDL_CreateTextureFromSurface(Graphics::get_SDL(), loadedSurface);
     SDL_FreeSurface(loadedSurface);
 

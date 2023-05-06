@@ -6,6 +6,7 @@ namespace Storm::Prefabs
 {
     struct SpriteNodeConfig
     {
+        
     };
 
     class SpriteNode : public Node
@@ -13,5 +14,7 @@ namespace Storm::Prefabs
     public:
         // Constructor
         SpriteNode(SpriteNodeConfig config);
+
+
     };
 };

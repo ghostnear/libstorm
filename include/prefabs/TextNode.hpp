@@ -42,12 +42,13 @@ namespace Storm::Prefabs
 
     class TextNode : public Node
     {
+    protected:
+        static void redraw_text_node(Node* slf);
+        static void text_node_draw(Node* slf);
+
     public:
         // Constructor
         TextNode(TextNodeConfig config);
-
-        static void redraw_text_node(Node* slf);
-        static void text_node_draw(Node* slf);
     };
 };
 

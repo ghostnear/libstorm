@@ -22,7 +22,7 @@ namespace Storm
         // Add a component of specified type. Shouldn't have empty names.
         template<typename TElem> void set_component(std::string name, TElem* value)
         {
-            std::shared_ptr<TElem>* newComponent =  new std::shared_ptr<TElem>(value);
+            std::shared_ptr<TElem>* newComponent = new std::shared_ptr<TElem>(value);
             _components[name] = newComponent;
         }
 
@@ -40,7 +40,7 @@ namespace Storm
             return *((std::shared_ptr<TElem>*)_components[name]);
         }
 
-        // Removes a reference to a component. Data freeing is left to the user's discretion. (TODO not do that?)
+        // Removes a reference to a component.
         template<typename TElem> void remove_component(std::string name)
         {
             auto component = _components.find(name);
