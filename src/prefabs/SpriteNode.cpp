@@ -63,7 +63,7 @@ namespace Storm::Prefabs
         );
         add_function(
             "draw",
-            sprite_node_draw
+            SpriteNode::sprite_node_draw
         );
     }
 }

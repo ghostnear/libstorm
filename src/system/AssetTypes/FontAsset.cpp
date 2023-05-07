@@ -30,8 +30,9 @@ TTF_Font* FontAsset::get(size_t size)
     // Load the font from the path
     _f[size] = TTF_OpenFont(_path.c_str(), size);
 
-    // TODO: log an error if something happened
-    // if(!_f[size])
+    // Something's gone wrong.
+    if(!_f[size])
+        Window::show_simple_message_box("Error", "Could not load font at path: " + _path + "\nWith size: " + Utils::to_string<size_t>(size) + "\nTTF_Error(): " + TTF_GetError(), SDL_MESSAGEBOX_ERROR);
 
     return _f[size];
 }

@@ -67,7 +67,7 @@ namespace Storm
             return _children[name];
         }
 
-        // Remove a reference to a child. Data freeing is left to the user's discretion. (TODO not do that?)
+        // Remove a reference to a child.
         void remove_child(std::string name)
         {
             _children[name] = nullptr;

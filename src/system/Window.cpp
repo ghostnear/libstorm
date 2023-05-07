@@ -18,12 +18,12 @@ namespace Storm
         // TODO: replace these with an actual config file
         uint32_t flags = fullscreenType;
 
-        // Create the SDL window (we are only using OpenGL)
+        // Create the SDL window
         window = SDL_CreateWindow(
             title.c_str(),
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             size.x, size.y,
-            flags | SDL_WINDOW_OPENGL
+            flags 
         );
         
         if(window == nullptr)

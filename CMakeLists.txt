@@ -50,7 +50,7 @@ target_compile_options(
     ${PROJECT_NAME}
     PUBLIC
         -Wall
-        -std=c++20
+        -std=c++17
 )
 
 # Private directories for "*.h" includes and public directories for <libstorm/*.h> includes
