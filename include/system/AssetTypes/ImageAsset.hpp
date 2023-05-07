@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../AssetManager.hpp"
-#include <SDL2/SDL_render.h>
 
 using namespace Storm;
 
@@ -11,7 +10,7 @@ private:
     SDL_Texture* textureData = NULL;
 
 public:
-    ~ImageAsset();
+    virtual ~ImageAsset();
 
     SDL_Texture* get();
 

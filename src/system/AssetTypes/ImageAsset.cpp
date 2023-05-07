@@ -1,10 +1,5 @@
 #include "system/AssetTypes/ImageAsset.hpp"
 #include "system/Graphics.hpp"
-#include <SDL2/SDL_error.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_stdinc.h>
-#include <SDL2/SDL_surface.h>
 
 void ImageAsset::load(AssetToLoad metadata)
 {

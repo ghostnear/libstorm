@@ -18,7 +18,8 @@ namespace Storm
     {
         Unknown = 0,
         Font,
-        Image
+        Image,
+        Animation
     };
     AssetType get_asset_type_from_name(std::string name);
 

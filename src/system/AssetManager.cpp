@@ -10,6 +10,8 @@ namespace Storm
             return AssetType::Font;
         if(name == "image")
             return AssetType::Image;
+        if(name == "animation")
+            return AssetType::Animation;
             
         return AssetType::Unknown;
     }
@@ -80,6 +82,10 @@ namespace Storm
 
                 case AssetType::Image:
                     newAsset = new ImageAsset();
+                    break;
+
+                case AssetType::Animation:
+                    newAsset = new AnimationAsset();
                     break;
                     
                 default:
