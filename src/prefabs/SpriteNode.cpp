@@ -6,6 +6,9 @@ namespace Storm::Prefabs
     void SpriteNode::sprite_node_draw(Node* slf)
     {
         auto sprite = slf->get_component<ImageAsset>("sprite_image");
+        if(sprite == nullptr)
+            return;
+
         auto position = slf->get_component<Vec2<double>>("sprite_position");
 
         static SDL_Rect displayRect;
@@ -32,8 +35,7 @@ namespace Storm::Prefabs
         SDL_SetTextureAlphaMod(sprite->get(), (Uint8)(*alpha * 255));
         SDL_SetRenderDrawBlendMode(Graphics::get_SDL(), SDL_BLENDMODE_BLEND);
 
-        if(sprite != nullptr)
-            SDL_RenderCopy(Graphics::get_SDL(), sprite->get(), NULL, &displayRect);
+        SDL_RenderCopy(Graphics::get_SDL(), sprite->get(), NULL, &displayRect);
 
         SDL_SetRenderDrawBlendMode(Graphics::get_SDL(), SDL_BLENDMODE_NONE);
         SDL_SetTextureAlphaMod(sprite->get(), 255);

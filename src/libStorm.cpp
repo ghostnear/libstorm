@@ -1,9 +1,5 @@
 #include "libStorm.hpp"
 
-// Major TODOs:
-// TODO: optimise compiling speed by fixing the header inclusion mess
-// TODO: optimise performance (will never be fully cleared as there is always something to optimise)
-
 namespace Storm
 {
     int32_t StormInit()
