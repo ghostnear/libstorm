@@ -124,4 +124,17 @@ namespace Storm::Prefabs
             TextNode::text_node_draw
         );
     }
+
+    TextNode::~TextNode()
+    {
+        remove_component<Vec2<double>>("text_offset");
+        remove_component<bool>("needs_redrawing");
+        remove_component<Rect<double>>("boundaries");
+        remove_component<Texture>("text_texture");
+        remove_component<SDL_Color>("text_color");
+        remove_component<size_t>("text_size");
+        remove_component<FontAsset>("text_font");
+        remove_component<std::string>("text");
+        remove_function("draw");
+    }
 }

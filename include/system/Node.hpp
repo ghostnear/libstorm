@@ -29,7 +29,9 @@ namespace Storm
         // Destructor
         ~Node()
         {
-            execute("free_node");
+            // Make sure all children are deleted.
+            for(auto child : _children)
+                child.second.reset();
         }
 
         /* ! Component types should be managed by the user, mismatching them can cause issues. ! */
@@ -95,7 +97,7 @@ namespace Storm
         }
 
         // Delete a function
-        void delete_function(std::string name)
+        void remove_function(std::string name)
         {
             auto iterator = _functions.find(name);
             if(iterator != _functions.end())

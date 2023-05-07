@@ -23,5 +23,8 @@ namespace Storm::Prefabs
     public:
         // Constructor
         SpriteNode(SpriteNodeConfig config);
+
+        // Destructor
+        ~SpriteNode();
     };
 };

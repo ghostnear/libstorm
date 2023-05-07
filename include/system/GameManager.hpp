@@ -12,9 +12,13 @@ namespace Storm
     {
     public:
         virtual void on_init() = 0;
-        virtual void on_destroy() = 0;
         virtual void draw() = 0;
         virtual void update(double dt) = 0;
+
+        virtual ~State()
+        {
+            delete root;
+        }
 
     protected:
         Node* root = new Node();
@@ -30,6 +34,7 @@ namespace Storm
         static double get_delta_time();
         static void push_state(State* newState);
         static void pop_state();
+        static void pop_all_states();
         static void limit_FPS(int32_t newLimit);
         static bool is_running();
 

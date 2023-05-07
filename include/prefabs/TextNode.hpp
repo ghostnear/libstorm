@@ -49,6 +49,9 @@ namespace Storm::Prefabs
     public:
         // Constructor
         TextNode(TextNodeConfig config);
+
+        // Destructor
+        ~TextNode();
     };
 };
 

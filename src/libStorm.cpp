@@ -62,6 +62,9 @@ namespace Storm
 
     int32_t StormQuit(int32_t returnValue)
     {
+        // Free all states.
+        GameManager::pop_all_states();
+
         // Free everything memory related here.
         Graphics::free();
         Window::free();

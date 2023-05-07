@@ -22,6 +22,15 @@ namespace Storm
         return gm._dt;
     }
 
+    void GameManager::pop_all_states()
+    {
+        // Delete all states
+        for(auto i : gm._states)
+            delete i;
+        gm._states.clear();
+        gm._running = false;
+    }
+
     void GameManager::update()
     {
         // Update delta time
@@ -70,6 +79,7 @@ namespace Storm
     void GameManager::pop_state()
     {
         // Remove latest added state and stop if there are no states
+        delete gm._states.back();
         gm._states.pop_back();
         if(gm._states.size() == 0)
             gm._running = false;

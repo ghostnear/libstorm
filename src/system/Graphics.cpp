@@ -71,10 +71,7 @@ namespace Storm
     void Graphics::free()
     {
         if(gfx._r != nullptr)
-        {
             SDL_DestroyRenderer(gfx._r);
-            gfx._r = nullptr;
-        }
     }
 
     #undef gfx

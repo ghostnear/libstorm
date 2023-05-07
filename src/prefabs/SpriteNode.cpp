@@ -66,4 +66,14 @@ namespace Storm::Prefabs
             SpriteNode::sprite_node_draw
         );
     }
+
+    SpriteNode::~SpriteNode()
+    {
+        remove_component<double>("sprite_alpha");
+        remove_component<Vec2<double>>("sprite_position");
+        remove_component<Vec2<double>>("sprite_scale");
+        remove_component<Vec2<double>>("sprite_offset");
+        remove_component<ImageAsset>("sprite_image");
+        remove_function("draw");
+    }
 }
