@@ -16,16 +16,21 @@ namespace Storm
     {
         // Window flags
         // TODO: replace these with an actual config file
-        uint32_t flags =  fullscreenType;
+        uint32_t flags = fullscreenType;
 
-        // Create the SDL window
+        // Create the SDL window (we are only using OpenGL)
         window = SDL_CreateWindow(
             title.c_str(),
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             size.x, size.y,
-            flags);
+            flags | SDL_WINDOW_OPENGL
+        );
+        
         if(window == nullptr)
+        {
+            Window::show_simple_message_box("Failed to create window: %s\n", SDL_GetError());
             isQuit = true;
+        }
     }
 
     Window& Window::get_instance()
