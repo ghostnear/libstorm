@@ -82,6 +82,7 @@ namespace Storm
     int32_t StormMainLoop()
     {
         srand(time(NULL));
+        rand();
 
         while(!Window::should_close() && GameManager::is_running())
         {

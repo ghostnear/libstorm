@@ -15,7 +15,12 @@ namespace Storm
         // SDL renderer
         _r = SDL_CreateRenderer(Window::get_SDL(), -1, flags);
         if(_r == nullptr)
+        {
             Window::close();
+            return;
+        }
+            
+        SDL_SetRenderDrawBlendMode(_r, SDL_BLENDMODE_BLEND);
     }
 
     SDL_Renderer* Graphics::get_SDL()

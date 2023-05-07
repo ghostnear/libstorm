@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include <random>
 #include "math/all.hpp"
 
 // Platform dependent dependencies

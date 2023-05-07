@@ -33,11 +33,9 @@ namespace Storm::Prefabs
 
         auto alpha = slf->get_component<double>("sprite_alpha");
         SDL_SetTextureAlphaMod(sprite->get(), (Uint8)(*alpha * 255));
-        SDL_SetRenderDrawBlendMode(Graphics::get_SDL(), SDL_BLENDMODE_BLEND);
 
         SDL_RenderCopy(Graphics::get_SDL(), sprite->get(), NULL, &displayRect);
 
-        SDL_SetRenderDrawBlendMode(Graphics::get_SDL(), SDL_BLENDMODE_NONE);
         SDL_SetTextureAlphaMod(sprite->get(), 255);
     }
 
