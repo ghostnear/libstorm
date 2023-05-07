@@ -37,6 +37,9 @@ namespace Storm
         // Gets a component and returns as specified type.
         template<typename TElem> std::shared_ptr<TElem> get_component(std::string name)
         {
+            if(_components[name] == nullptr)
+                SDL_LogError(0, "Component %s is null!\n", name.c_str());
+
             return *((std::shared_ptr<TElem>*)_components[name]);
         }
 

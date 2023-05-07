@@ -9,7 +9,7 @@ namespace Storm
     {
         // Try to show the message box using SDL, if it is not possible, write to output.
         if(SDL_ShowSimpleMessageBox(type, title.c_str(), message.c_str(), win.get_SDL()) < 0)
-            printf("%s!\n%s", title.c_str(), message.c_str());
+            SDL_Log("%s!\n%s", title.c_str(), message.c_str());
     }
 
     Window::Window()

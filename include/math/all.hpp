@@ -20,6 +20,15 @@ namespace Storm
                 .y = aux_y
             };
         }
+
+        template<typename T>
+        Vec2<TElem> operator+(Vec2<T> arg)
+        {
+            return {
+                .x = x + arg.x,
+                .y = y + arg.y
+            };
+        }
     };
 
     template<typename TElem>
