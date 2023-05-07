@@ -34,6 +34,8 @@ void ImageAsset::load(AssetToLoad metadata)
         );
         return;
     }
+
+    SDL_SetTextureBlendMode(textureData, SDL_BLENDMODE_BLEND);
 }
 
 SDL_Texture* ImageAsset::get()

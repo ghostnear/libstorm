@@ -35,8 +35,6 @@ namespace Storm::Prefabs
         SDL_SetTextureAlphaMod(sprite->get(), (Uint8)(*alpha * 255));
 
         SDL_RenderCopy(Graphics::get_SDL(), sprite->get(), NULL, &displayRect);
-
-        SDL_SetTextureAlphaMod(sprite->get(), 255);
     }
 
     SpriteNode::SpriteNode(SpriteNodeConfig config)
