@@ -69,6 +69,12 @@ namespace Storm
             return _children[name];
         }
 
+        // Gets all children as map.
+        std::map<std::string, std::shared_ptr<Node>> get_children()
+        {
+            return _children;
+        }
+
         // Remove a reference to a child.
         void remove_child(std::string name)
         {
