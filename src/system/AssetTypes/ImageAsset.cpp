@@ -43,6 +43,13 @@ SDL_Texture* ImageAsset::get()
     return textureData;
 }
 
+Vec2<int> ImageAsset::get_size()
+{
+    int w, h;
+    SDL_QueryTexture(textureData, NULL, NULL, &w, &h);
+    return Vec2<int>{.x = w, .y = h};
+}
+
 ImageAsset::~ImageAsset()
 {
     if(textureData != NULL)

@@ -12,6 +12,11 @@ namespace Storm
         // TODO: replace these with an actual engine config file
         uint32_t flags = SDL_RENDERER_ACCELERATED;
 
+        // Specify platform specific drivers.
+    #ifdef VITA
+        SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengles2");
+    #endif
+
         // SDL renderer
         _r = SDL_CreateRenderer(Window::get_SDL(), -1, flags);
         if(_r == nullptr)

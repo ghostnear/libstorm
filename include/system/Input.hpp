@@ -25,13 +25,12 @@ namespace Storm
 
         private:
             // Constructor should be private
-            Input() {}
+            Input() {};
 
             // Event handling
             SDL_Event* _event = new SDL_Event();
 
             // Keyboard handling
-            std::map<SDL_Keycode, bool> _currentState;
-            std::map<SDL_Keycode, bool> _lastState;
+            std::map<SDL_Keycode, bool> _currentState, _lastState;
     };
 }

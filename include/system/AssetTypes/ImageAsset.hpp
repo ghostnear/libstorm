@@ -14,5 +14,7 @@ public:
 
     SDL_Texture* get();
 
+    Vec2<int> get_size();
+
     void load(AssetToLoad metadata) override;
 };
