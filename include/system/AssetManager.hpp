@@ -2,15 +2,12 @@
 
 #include "deps.hpp"
 #include "Window.hpp"
-#include "external/json.hpp"
 #include <fstream>
 #include <thread>
 #include <queue>
 #include <unordered_map>
 #include <memory>
 #include <mutex>
-
-using json = nlohmann::json;
 
 namespace Storm
 {

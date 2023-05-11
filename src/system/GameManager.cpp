@@ -41,7 +41,7 @@ namespace Storm
         // If no FPS cap just update, don't care what happens.
         if(gm._fpsLimit < 1)
             for(auto i : gm._states)
-                i->update(gm._dt);
+                i->update();
         else
         {
             // Compensate for the time passed if it took too long
@@ -50,7 +50,7 @@ namespace Storm
             {
                 gm._dt = 1.0 / gm._fpsLimit;
                 for(auto state : gm._states)
-                    state->update(gm._dt);
+                    state->update();
                 gm._acc -= 1.0 / gm._fpsLimit;
             }
 

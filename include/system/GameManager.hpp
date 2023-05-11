@@ -1,7 +1,7 @@
 #pragma once
 
 #include "deps.hpp"
-#include "system/Node.hpp"
+#include "system/all.hpp"
 #include <vector>
 #include <thread>
 #include <chrono>
@@ -11,9 +11,32 @@ namespace Storm
     class State
     {
     public:
-        virtual void on_init() = 0;
-        virtual void draw() = 0;
-        virtual void update(double dt) = 0;
+        virtual void on_init()
+        {
+
+        }
+
+        virtual void draw()
+        {
+            Graphics::clear(0, 0, 0);
+
+            // Draw scene
+            root->execute_all("draw");
+
+            Graphics::update();
+        }
+
+        virtual void update()
+        {
+            // Press escape to close window
+        #ifndef VITA
+            if(Input::isKeyReleased(SDLK_ESCAPE))
+                Window::close();
+        #endif
+
+            // Update scene
+            root->execute_all("update");
+        }
 
         virtual ~State()
         {

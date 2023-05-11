@@ -11,6 +11,22 @@ namespace Utils
         return nullptr;
     }
 
+    json read_json(std::string path)
+    {
+        std::ifstream file(path);
+        json result;
+        file >> result;
+        file.close();
+        return result;
+    }
+
+    void write_json(std::string path, json data)
+    {
+        std::ofstream file(path);
+        file << data;
+        file.close();
+    }
+
     std::string remove_file_name_from_path(std::string path)
     {
         size_t index = path.size();

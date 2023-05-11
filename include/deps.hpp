@@ -4,9 +4,13 @@
 #include <cstdio>
 #include <sstream>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <random>
 #include "math/all.hpp"
+#include "external/json.hpp"
+
+using json = nlohmann::json;
 
 // Platform dependent dependencies
 #ifndef WIN
@@ -36,6 +40,10 @@ namespace Utils
     // Intersects 2 rects and returns the resulting intersection.
     // If the result is nullptr then that means the rects don't intersect
     SDL_Rect* intersect_rects(SDL_Rect* a, SDL_Rect* b);
+
+    // JSON operations.
+    json read_json(std::string path);
+    void write_json(std::string path, json data);
 
     // Removes the file name from the path
     // ex: ./assets/lists.json becomes ./assets/
