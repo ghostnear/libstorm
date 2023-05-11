@@ -8,6 +8,7 @@
 #include <queue>
 #include <unordered_map>
 #include <memory>
+#include <mutex>
 
 using json = nlohmann::json;
 
@@ -55,10 +56,12 @@ namespace Storm
             }
             static void save_asset(Asset* assetPointer, std::string identifier)
             {
+                std::lock_guard<std::mutex> lock(AssetManager::get_instance()._assetMutex);
                 assets[identifier] = assetPointer;
             }
             template<typename T> static T* get_asset(std::string identifier)
             {
+                std::lock_guard<std::mutex> lock(AssetManager::get_instance()._assetMutex);
                 return (T*)assets[identifier];
             }
 
@@ -68,6 +71,9 @@ namespace Storm
 
             // All assets are here
             std::unordered_map<std::string, Asset*> _assetMap;
+
+            // Mutex for thread safety.
+            std::mutex _assetMutex;
     };
 
     #undef assets
@@ -106,5 +112,8 @@ namespace Storm
 
             // Queue infos
             size_t _maxCount = 0;
+
+            // Mutex for thread safety.
+            std::mutex _assetMutex;
     };
 };

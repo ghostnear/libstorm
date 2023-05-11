@@ -44,11 +44,13 @@ namespace Storm
 
     void AssetLoader::reset()
     {
+        std::lock_guard<std::mutex> lock(AssetLoader::get_instance()._assetMutex);
         theLoader._maxCount = 0;
     }
 
     double AssetLoader::get_percentage()
     {
+        std::lock_guard<std::mutex> lock(AssetLoader::get_instance()._assetMutex);
         if(AssetLoader::get_count() == 0)
             return 1;
         return 1.0 - (1.0 * AssetLoader::get_count() / AssetLoader::get_max_count());
@@ -69,6 +71,9 @@ namespace Storm
         // Do the loading while the queue is not empty, at maximum processing speed.
         while(!theLoader._assetQueue.empty() && !Window::should_close())
         {
+            std::lock_guard<std::mutex> lock(AssetLoader::get_instance()._assetMutex);
+
+            // Get the asset to load
             AssetToLoad currentAsset = theLoader._assetQueue.front();
             theLoader._assetQueue.pop();
 
