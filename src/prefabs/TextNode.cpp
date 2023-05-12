@@ -45,6 +45,11 @@ namespace Storm::Prefabs
 
     void TextNode::text_node_draw(Node* slf)
     {
+        // Make sure it is actually drawable.
+        auto drawable = slf->get_component<bool>("drawable");
+        if(!*drawable)
+            return;
+
         // Make sure you have a font first.
         auto fontAsset = slf->get_component<FontAsset>("text_font");
         if(fontAsset == nullptr)
@@ -95,6 +100,10 @@ namespace Storm::Prefabs
             "needs_redrawing",
             new bool(true)
         );
+        set_component<bool>(
+            "drawable",
+            new bool(true)
+        );
         set_component<Rect<double>>(
             "boundaries",
             new Rect<double>(config.boundaries)
@@ -127,6 +136,7 @@ namespace Storm::Prefabs
 
     TextNode::~TextNode()
     {
+        remove_component<bool>("drawable");
         remove_component<Vec2<double>>("text_offset");
         remove_component<bool>("needs_redrawing");
         remove_component<Rect<double>>("boundaries");

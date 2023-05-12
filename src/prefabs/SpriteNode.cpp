@@ -5,6 +5,12 @@ namespace Storm::Prefabs
 {
     void SpriteNode::sprite_node_draw(Node* slf)
     {
+        // Make sure the sprite is drawable.
+        auto drawable = slf->get_component<bool>("drawable");
+        if(!*drawable)
+            return;
+
+        // Make sure the image exists.
         auto sprite = slf->get_component<ImageAsset>("sprite_image");
         if(sprite == nullptr)
             return;
@@ -43,6 +49,10 @@ namespace Storm::Prefabs
             "sprite_alpha",
             new double(config.alpha)
         );
+        set_component<bool>(
+            "drawable",
+            new bool(true)
+        );
         set_component<Vec2<double>>(
             "sprite_position",
             new Vec2<double>(config.position)
@@ -67,6 +77,7 @@ namespace Storm::Prefabs
 
     SpriteNode::~SpriteNode()
     {
+        remove_component<bool>("drawable");
         remove_component<double>("sprite_alpha");
         remove_component<Vec2<double>>("sprite_position");
         remove_component<Vec2<double>>("sprite_scale");
